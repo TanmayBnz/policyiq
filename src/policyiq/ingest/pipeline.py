@@ -30,7 +30,18 @@ def ingest_pdf(pdf_path: Path) -> IngestResult:
     """
     filename = pdf_path.name
 
-    pages = extract_pages(pdf_path)
+    # pypdf raises a family of unrelated exception types for a file it cannot read:
+    # an encrypted document, a truncated one, and an HTML error page saved with a .pdf
+    # name all fail differently. Every one of them is a bad upload rather than a fault
+    # in this service, so they are caught together and reported as a rejection.
+    # Encrypted documents are rejected rather than decrypted on purpose - the
+    # decryption dependency is weight the container does not otherwise need.
+    try:
+        pages = extract_pages(pdf_path)
+    except Exception as exc:
+        raise ValueError(
+            f"{filename} rejected at intake - unreadable: {type(exc).__name__}: {exc}"
+        ) from exc
 
     # Intake runs before any work is done and before anything is written. A document
     # that gets past this point is competing for space in every future set of search

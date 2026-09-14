@@ -152,6 +152,36 @@ def test_a_document_failing_intake_validation_is_rejected(tmp_path: Path):
     assert documents == 0
 
 
+def test_a_file_that_cannot_be_read_as_a_pdf_is_rejected(tmp_path: Path):
+    """Encrypted policies and pages saved as HTML both arrive named .pdf and both
+    make pypdf raise. Without this they surface as a server fault rather than a
+    rejected upload. Not decrypting is deliberate: the decryption dependency is
+    weight the container does not otherwise need."""
+    not_a_pdf = tmp_path / "scanned.pdf"
+    not_a_pdf.write_bytes(b"<html><body>Access denied</body></html>")
+
+    with pytest.raises(ValueError, match="unreadable"):
+        ingest_pdf(not_a_pdf)
+
+    with get_pool().connection() as conn:
+        documents = conn.execute(
+            "SELECT count(*) FROM documents WHERE filename = 'scanned.pdf'"
+        ).fetchone()[0]
+    assert documents == 0
+
+
+def test_upload_endpoint_reports_an_unreadable_file_as_unprocessable(tmp_path: Path):
+    not_a_pdf = tmp_path / "scanned.pdf"
+    not_a_pdf.write_bytes(b"<html><body>Access denied</body></html>")
+
+    with not_a_pdf.open("rb") as handle:
+        response = client.post(
+            "/v1/ingest", files={"file": ("scanned.pdf", handle, "application/pdf")}
+        )
+
+    assert response.status_code == 422
+
+
 def test_upload_endpoint_ingests_and_reports_what_it_stored(specimen_pdf: Path):
     with specimen_pdf.open("rb") as handle:
         response = client.post(
