@@ -1,3 +1,4 @@
+import psycopg
 import pytest
 
 from policyiq.db import db_healthy, get_pool
@@ -24,7 +25,7 @@ def test_chunks_table_rejects_wrong_dimension_vectors():
         )
 
         bad = "[" + ",".join(["0.1"] * 383) + "]"
-        with pytest.raises(Exception):
+        with pytest.raises(psycopg.Error, match="384"):
             conn.execute(
                 "INSERT INTO chunks (document_id, page_number, chunk_index, content, embedding)"
                 " VALUES (%s, 1, 1, 'bad', %s)",
