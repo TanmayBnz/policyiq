@@ -14,3 +14,4 @@ data/
 # Never publish — these describe the author's experience level and job search.
 docs/private/
 *roadmap*.md
+CLAUDE.md
