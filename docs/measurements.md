@@ -18,9 +18,21 @@ or query, which means the service deploys to ordinary cluster nodes. PyTorch was
 rejected because it is a training stack — at inference time it costs 2.5GB of image
 size and buys nothing.
 
-## To be filled in
+## Chunking — clause-aware, target 1200 chars, overlap 150
 
-- [ ] Chunks per document, median chunk size (Task 4)
+Measured 2026-09-15 across the full corpus.
+
+| Metric | Value |
+|---|---|
+| Corpus | 10 documents, 268 pages |
+| Chunks produced | 874 |
+| Chunks per page | 3.3 |
+| Chunk size | min 95, median 998, max 1346 |
+| Chunks over ceiling (1351) | 0 of 874 |
+
+Before the review fixes: 16% of chunks exceeded the target, largest 2844 (2.4x).
+
+## To be filled in
 - [ ] Vector search latency (Task 7)
 - [ ] End-to-end query latency (Task 9)
 - [ ] Generation latency by model (Task 8)
