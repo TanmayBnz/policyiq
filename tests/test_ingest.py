@@ -124,6 +124,34 @@ def test_a_pdf_with_no_extractable_text_is_rejected(tmp_path: Path):
     assert documents == 0
 
 
+def test_a_document_failing_intake_validation_is_rejected(tmp_path: Path):
+    """Validation runs before anything is written, so a bad document cannot reach the
+    corpus and start competing for space in search results."""
+    from fpdf import FPDF
+
+    body = (
+        "1. The Company shall indemnify the Insured Person for Medical Expenses "
+        "incurred towards Hospitalisation. 2. The premium and claim procedure are "
+        "set out in the Schedule to this Policy issued by the insurer."
+    )
+    pdf = FPDF()
+    pdf.set_font("Helvetica", size=11)
+    for _ in range(8):
+        pdf.add_page()
+        pdf.multi_cell(0, 6, body)
+    repeated = tmp_path / "scanned.pdf"
+    pdf.output(str(repeated))
+
+    with pytest.raises(ValueError, match="duplicate_pages"):
+        ingest_pdf(repeated)
+
+    with get_pool().connection() as conn:
+        documents = conn.execute(
+            "SELECT count(*) FROM documents WHERE filename = 'scanned.pdf'"
+        ).fetchone()[0]
+    assert documents == 0
+
+
 def test_upload_endpoint_ingests_and_reports_what_it_stored(specimen_pdf: Path):
     with specimen_pdf.open("rb") as handle:
         response = client.post(

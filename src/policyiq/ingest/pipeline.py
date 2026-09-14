@@ -7,6 +7,7 @@ from policyiq.db import get_pool
 from policyiq.embeddings import embed_texts
 from policyiq.ingest.chunking import chunk_pages
 from policyiq.ingest.pdf import extract_pages
+from policyiq.ingest.validation import check_document
 from policyiq.schemas import IngestResult
 
 INSERT_CHUNK = """
@@ -30,8 +31,14 @@ def ingest_pdf(pdf_path: Path) -> IngestResult:
     filename = pdf_path.name
 
     pages = extract_pages(pdf_path)
-    if not pages:
-        raise ValueError(f"no extractable text in {filename} - is it a scan?")
+
+    # Intake runs before any work is done and before anything is written. A document
+    # that gets past this point is competing for space in every future set of search
+    # results, and its failure mode is silent.
+    rejections = check_document(pages)
+    if rejections:
+        reasons = "; ".join(f"{r.rule}: {r.detail}" for r in rejections)
+        raise ValueError(f"{filename} rejected at intake - {reasons}")
 
     chunks = chunk_pages(pages, settings.chunk_target_chars, settings.chunk_overlap_chars)
     vectors = embed_texts([chunk.content for chunk in chunks])
