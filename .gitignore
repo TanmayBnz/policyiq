@@ -9,3 +9,8 @@ venv/
 .pytest_cache/
 .ruff_cache/
 data/
+
+# Private working notes: career planning, implementation plans, decision log.
+# Never publish — these describe the author's experience level and job search.
+docs/private/
+*roadmap*.md
