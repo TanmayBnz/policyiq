@@ -6,7 +6,7 @@ from policyiq.config import settings
 from policyiq.db import get_pool
 from policyiq.embeddings import embed_texts
 from policyiq.ingest.chunking import chunk_pages
-from policyiq.ingest.pdf import extract_pages
+from policyiq.ingest.pdf import extract_pages, strip_page_furniture
 from policyiq.ingest.validation import check_document
 from policyiq.schemas import IngestResult
 
@@ -46,11 +46,18 @@ def ingest_pdf(pdf_path: Path) -> IngestResult:
     # Intake runs before any work is done and before anything is written. A document
     # that gets past this point is competing for space in every future set of search
     # results, and its failure mode is silent.
+    #
+    # Validation judges the document as extracted, before furniture is stripped.
+    # Stripping removes lines that repeat across pages, which is precisely the evidence
+    # the duplicate-page rule reads: run the other way round, a document with the whole
+    # policy on every page is stripped to nothing and reported as empty rather than as
+    # the duplicate it is.
     rejections = check_document(pages)
     if rejections:
         reasons = "; ".join(f"{r.rule}: {r.detail}" for r in rejections)
         raise ValueError(f"{filename} rejected at intake - {reasons}")
 
+    pages = strip_page_furniture(pages)
     chunks = chunk_pages(pages, settings.chunk_target_chars, settings.chunk_overlap_chars)
     vectors = embed_texts([chunk.content for chunk in chunks])
 
