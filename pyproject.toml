@@ -19,6 +19,9 @@ dependencies = [
     "python-multipart>=0.0.12",
 ]
 
+[project.optional-dependencies]
+dev = ["pytest>=8.3", "ruff>=0.8", "mypy>=1.13", "fpdf2>=2.8"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -27,7 +30,7 @@ target-version = "py311"
 select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 testpaths = ["tests"]
 
 [tool.setuptools.packages.find]
