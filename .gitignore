@@ -15,3 +15,6 @@ data/
 docs/private/
 *roadmap*.md
 CLAUDE.md
+
+# Setuptools build metadata, regenerated on every editable install.
+*.egg-info/
