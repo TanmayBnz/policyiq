@@ -6,7 +6,8 @@ from policyiq.config import settings
 from policyiq.db import get_pool
 from policyiq.embeddings import embed_texts
 from policyiq.ingest.chunking import chunk_pages
-from policyiq.ingest.pdf import extract_pages
+from policyiq.ingest.pdf import extract_pages, strip_page_furniture
+from policyiq.ingest.validation import check_document
 from policyiq.schemas import IngestResult
 
 INSERT_CHUNK = """
@@ -29,10 +30,34 @@ def ingest_pdf(pdf_path: Path) -> IngestResult:
     """
     filename = pdf_path.name
 
-    pages = extract_pages(pdf_path)
-    if not pages:
-        raise ValueError(f"no extractable text in {filename} - is it a scan?")
+    # pypdf raises a family of unrelated exception types for a file it cannot read:
+    # an encrypted document, a truncated one, and an HTML error page saved with a .pdf
+    # name all fail differently. Every one of them is a bad upload rather than a fault
+    # in this service, so they are caught together and reported as a rejection.
+    # Encrypted documents are rejected rather than decrypted on purpose - the
+    # decryption dependency is weight the container does not otherwise need.
+    try:
+        pages = extract_pages(pdf_path)
+    except Exception as exc:
+        raise ValueError(
+            f"{filename} rejected at intake - unreadable: {type(exc).__name__}: {exc}"
+        ) from exc
 
+    # Intake runs before any work is done and before anything is written. A document
+    # that gets past this point is competing for space in every future set of search
+    # results, and its failure mode is silent.
+    #
+    # Validation judges the document as extracted, before furniture is stripped.
+    # Stripping removes lines that repeat across pages, which is precisely the evidence
+    # the duplicate-page rule reads: run the other way round, a document with the whole
+    # policy on every page is stripped to nothing and reported as empty rather than as
+    # the duplicate it is.
+    rejections = check_document(pages)
+    if rejections:
+        reasons = "; ".join(f"{r.rule}: {r.detail}" for r in rejections)
+        raise ValueError(f"{filename} rejected at intake - {reasons}")
+
+    pages = strip_page_furniture(pages)
     chunks = chunk_pages(pages, settings.chunk_target_chars, settings.chunk_overlap_chars)
     vectors = embed_texts([chunk.content for chunk in chunks])
 
