@@ -1,8 +1,0 @@
-pyproject.toml
-src/policyiq/__init__.py
-src/policyiq.egg-info/PKG-INFO
-src/policyiq.egg-info/SOURCES.txt
-src/policyiq.egg-info/dependency_links.txt
-src/policyiq.egg-info/requires.txt
-src/policyiq.egg-info/top_level.txt
-src/policyiq/ingest/__init__.py
