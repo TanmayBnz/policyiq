@@ -68,6 +68,8 @@ PAGES: list[tuple[str, list[str]]] = [
             "evaluation or diagnostic purposes not followed by active treatment.",
             "(d) Dental treatment or surgery of any kind, unless requiring "
             "Hospitalisation and arising from an Accident.",
+            "(e) Maternity expenses, including childbirth, and treatment for sterility "
+            "or infertility, including assisted reproduction such as IVF.",
         ],
     ),
     (

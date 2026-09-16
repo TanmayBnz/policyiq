@@ -1,6 +1,7 @@
 import re
 
 from policyiq.config import settings
+from policyiq.ingest.chunking import SECTION_PREFIX
 from policyiq.llm import get_provider
 from policyiq.retrieval.vector import RetrievedChunk, vector_search
 from policyiq.schemas import Citation, QueryResponse
@@ -47,6 +48,13 @@ _EXCERPT_START = re.compile(r"(?:^|[.;:!?]\s+|\n\s*)([A-Z0-9(])")
 def _excerpt(content: str, limit: int) -> str:
     """Quote from the first clean sentence start, not from the overlap tail."""
     text = content.strip()
+    # BUGFIX (2026-09-16): chunks now open with a "Section: ..." line added by the
+    # chunker. Left in, it was quoted as though it were the policy's own words, and -
+    # since it sits at the very start - the search below matched it at position 0 and
+    # never skipped the overlap tail that follows it. Dropping the line first restores
+    # both: the quote is the document's text, and it starts at a clean sentence.
+    if text.startswith(SECTION_PREFIX):
+        text = text.partition("\n")[2].strip()
     match = _EXCERPT_START.search(text)
     if match:
         text = text[match.start(1) :]
