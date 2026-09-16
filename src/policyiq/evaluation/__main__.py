@@ -101,7 +101,7 @@ def main(argv: list[str] | None = None) -> None:
     run_parser.add_argument("--retrieval-only", action="store_true",
                             help="skip generation: seconds instead of minutes")
     run_parser.add_argument("--warm", action="store_true",
-                            help="keep the model loaded: ~10x faster, answers not repeatable")
+                            help="keep the model loaded: ~3.5x faster, answers not repeatable")
     run_parser.add_argument("--prompt", type=Path, help="alternative prompt template")
     run_parser.add_argument("--label", default="", help="suffix for the report filename")
     run_parser.add_argument("--only", nargs="+", metavar="ID", help="run just these cases")
