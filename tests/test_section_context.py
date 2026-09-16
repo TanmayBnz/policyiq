@@ -16,9 +16,9 @@ These assert only that the section's name reaches the chunk's text, since that t
 what gets embedded and what the model reads. How it gets there is the chunker's
 business.
 
-Marked xfail(strict=True): they describe behaviour the chunker does not have yet. When
-it does, they pass, strict turns that into a failure, and the marker must be removed -
-so the fix cannot land without the test being switched on.
+The chunker puts the section on the chunk's first line and also keeps it in
+`Chunk.section`; `body` below is the chunk's text without it, which is what the
+guards need to inspect.
 """
 
 import pytest
@@ -31,11 +31,6 @@ FILLER = (
     "Expenses related to the treatment of the listed condition shall be excluded until "
     "the expiry of the stated months of continuous coverage after the date of inception. "
 )
-
-pending = pytest.mark.xfail(
-    strict=True, reason="chunks do not yet carry their section heading"
-)
-
 
 def niva_layout() -> list[tuple[int, str]]:
     return [
@@ -106,13 +101,17 @@ LAYOUTS = [
 ]
 
 
+def body(chunk) -> str:
+    """The chunk's own text, without the section line the chunker adds."""
+    return chunk.content.removeprefix(chunk.section).lstrip("\n")
+
+
 def chunk_containing(chunks, text: str):
     found = [c for c in chunks if text in c.content]
     assert found, f"no chunk contains {text!r}"
     return found[0]
 
 
-@pending
 @pytest.mark.parametrize("layout", LAYOUTS)
 def test_an_item_pages_after_its_heading_still_names_its_section(layout):
     chunks = chunk_pages(layout(), TARGET, OVERLAP)
@@ -124,16 +123,16 @@ def test_an_item_pages_after_its_heading_still_names_its_section(layout):
 @pytest.mark.parametrize("layout", LAYOUTS)
 def test_the_fixture_actually_separates_the_item_from_its_heading(layout):
     """Guards the test above against passing for the wrong reason. If the item and its
-    heading already landed in one chunk, that test would pass with no fix at all."""
+    heading already landed in one chunk's text, that test would pass with no fix at
+    all - so this checks the body, without the section line the fix adds."""
     chunks = chunk_pages(layout(), TARGET, OVERLAP)
     item = chunk_containing(chunks, "Sterility and Infertility")
     heading_page = layout()[0][0]
 
     assert item.page_number != heading_page
-    assert "standard exclusions" not in item.content.lower()
+    assert "standard exclusions" not in body(item).lower()
 
 
-@pending
 @pytest.mark.parametrize("layout", LAYOUTS)
 def test_a_heading_at_the_end_of_a_page_belongs_to_what_follows(layout):
     """"Specific Exclusions" closes the standard list and opens the next one. The items
@@ -149,7 +148,7 @@ def test_a_heading_at_the_end_of_a_page_belongs_to_what_follows(layout):
 def test_carrying_the_heading_carries_no_text_from_the_heading_page(layout):
     """The section's name may cross a page; its text may not. A citation says the
     chunk came from the page it names - clause text from another page breaks that,
-    the same rule overlap already follows. Passes today; must keep passing."""
+    the same rule overlap already follows."""
     chunks = chunk_pages(layout(), TARGET, OVERLAP)
     heading_page = layout()[0][0]
 
@@ -157,3 +156,110 @@ def test_carrying_the_heading_carries_no_text_from_the_heading_page(layout):
         if chunk.page_number != heading_page:
             assert "Pre-existing Diseases" not in chunk.content
             assert "Pre-Existing Diseases" not in chunk.content
+
+
+# --- Defences against headings the PDF reader damaged ------------------------------
+# A missed heading is not a neutral failure: the section before it keeps its label, and
+# exclusion items end up labelled as coverage. All three cases below came from the
+# real corpus.
+
+
+def only_chunk_containing(pages, text: str):
+    return chunk_containing(chunk_pages(pages, TARGET, OVERLAP), text)
+
+
+def test_a_digit_printed_for_a_letter_does_not_hide_a_heading():
+    """Policy_Document_Arogya_Sanjeevani prints its heading as "7. EXCLUS1ONS"."""
+    pages = [
+        (7, "4. COVERAGE\n" + FILLER * 3),
+        (11, "7. EXCLUS1ONS\n" + FILLER * 3),
+        (12, "Sterility and Infertility is not payable.\n" + FILLER * 2),
+    ]
+    item = only_chunk_containing(pages, "Sterility and Infertility")
+
+    assert "EXCLUSIONS" in item.section
+    assert "COVERAGE" not in item.section
+
+
+def test_a_line_the_reader_cut_short_is_not_a_heading():
+    """"3.9. Condition Pr" is a definition whose title was truncated. Read as a heading,
+    it relabelled every definition after it as terms and conditions."""
+    pages = [
+        (1, "3. DEFINITIONS\n" + FILLER * 3),
+        (2, "3.9. Condition Pr\n" + FILLER * 3),
+        (3, "3.10. Congenital Anomaly means a condition present since birth.\n" + FILLER),
+    ]
+    item = only_chunk_containing(pages, "Congenital Anomaly")
+
+    assert item.section == "Section: DEFINITIONS"
+
+
+def test_a_coded_exclusion_item_overrides_a_missed_heading():
+    """IRDAI assigns Excl codes to exclusions only. If the heading was lost entirely,
+    the codes still identify the section, rather than leaving COVERAGE in place."""
+    pages = [
+        (7, "4. COVERAGE\n" + FILLER * 3),
+        (11, "7. [heading lost]\n7.1. Pre-Existing Diseases (Code-Excl01)\n" + FILLER * 3),
+        (12, "Sterility and Infertility is not payable.\n" + FILLER * 2),
+    ]
+    item = only_chunk_containing(pages, "Sterility and Infertility")
+
+    assert "exclusions" in item.section.lower()
+    assert "COVERAGE" not in item.section
+
+
+def test_a_mid_sentence_reference_to_an_exclusion_code_is_not_an_exclusion():
+    """star-health-assure's benefits say Exclusion no.1 (Code-Excl 01) does not apply to
+    a benefit. That refers to an exclusion; the text around it is still coverage."""
+    pages = [
+        (15, "4. COVERAGE\n"
+             "iii.  Exclusion no.1, (Code-Excl 01), Exclusion no.2 (Code-Excl 02) shall\n"
+             "not apply to this cover.\n" + FILLER * 3),
+        (16, "Home care treatment is payable up to the limit.\n" + FILLER * 2),
+    ]
+    item = only_chunk_containing(pages, "Home care treatment")
+
+    assert item.section == "Section: COVERAGE"
+
+
+def test_a_heading_closing_a_short_clause_does_not_label_that_clause():
+    """The layouts above reach the chunker as long clauses and go through the hard
+    split. This one arrives as short clauses that get merged, the other route through
+    the chunker: the clause holding the maternity item ends with the next section's
+    heading, and still has to be labelled as the section it belongs to."""
+    pages = [
+        (14, "5. Exclusions\n5.1. Standard Exclusions\n" + FILLER),
+        (17, FILLER + "\n\n" + FILLER + "\n\n"
+             "5.1.16. Maternity Expenses (Code-Excl18)\n"
+             "Medical treatment expenses traceable to childbirth.\n"
+             "5.2. Specific Exclusions"),
+    ]
+    chunks = chunk_pages(pages, TARGET, OVERLAP)
+    item = chunk_containing(chunks, "Maternity Expenses")
+    first_on_page = next(c for c in chunks if c.page_number == 17)
+
+    assert item != first_on_page, "fixture must make the item start a new chunk"
+    assert item.section == "Section: Exclusions > Standard Exclusions"
+
+
+def test_a_numbered_heading_led_by_its_section_word_may_end_in_a_full_stop():
+    """niva-bupa-reassure-2: "4. Benefits available under the policy." Rejected, eight
+    pages of benefits were labelled as definitions."""
+    pages = [
+        (5, "2.2. Specific Definitions\n" + FILLER * 2 +
+            "\n4. Benefits available under the policy.\n4.1. Expenses in reaching a Hospital"),
+        (6, "Road ambulance expenses are payable up to the limit.\n" + FILLER * 2),
+    ]
+    item = only_chunk_containing(pages, "Road ambulance")
+
+    assert item.section == "Section: Benefits available under the policy"
+
+
+def test_a_sentence_ending_in_a_section_word_and_a_full_stop_is_not_a_heading():
+    pages = [
+        (1, "5. Exclusions\n" + FILLER * 2 + "\nFraud and Permanent Exclusions.\n"),
+        (2, "War and nuclear risks are not payable.\n" + FILLER * 2),
+    ]
+    item = only_chunk_containing(pages, "War and nuclear")
+
+    assert item.section == "Section: Exclusions"
