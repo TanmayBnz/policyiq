@@ -203,6 +203,21 @@ def test_an_excerpt_never_begins_part_way_through_a_word(stub):
         )
 
 
+def test_an_excerpt_quotes_the_document_not_the_section_label(stub):
+    """Chunks open with a "Section: ..." line the chunker adds. A quote presents itself as
+    the document's words, so the label does not belong in it - and when it was included,
+    it sat at position 0, satisfied the word-boundary check above, and let the overlap
+    tail after it through: "Section: Exclusion > Standard Exclusions / mentation to".
+    """
+    stub("Excluded [1] and [2] and [3].")
+
+    result = answer_question(QUESTION, top_k=3)
+
+    assert result.citations
+    for citation in result.citations:
+        assert not citation.excerpt.startswith("Section:"), citation.excerpt[:80]
+
+
 def test_every_citation_corresponds_to_a_chunk_that_was_retrieved(stub):
     stub("Excluded [1] and [2] and [3].")
 
@@ -271,3 +286,61 @@ def test_a_real_model_says_so_when_the_documents_do_not_answer(live):
 
     assert re.search(r"do(es)? not|no information|not (specified|covered|mention)",
                      result.answer, re.IGNORECASE), result.answer
+
+
+REFUSAL = "The provided policy documents do not cover this."
+MATERNITY = "Does the policy cover maternity expenses or infertility treatments?"
+
+
+def test_a_real_model_never_calls_an_excluded_item_covered(live):
+    """The worst failure seen so far: asked this, the system said maternity and fertility
+    treatment were covered, citing the very clauses that exclude them. The heading that
+    said so was pages away from the items. Chunks now carry their section, and this is
+    the guarantee that follows: whatever else the answer says, it must not be that."""
+    answer = answer_question(MATERNITY, top_k=5).answer
+
+    assert not [s for s in re.split(r"(?<=[.!?])\s+", answer) if claims_cover(s)], answer
+
+
+def claims_cover(sentence: str) -> bool:
+    """A sentence saying maternity or infertility treatment is covered, with nothing in
+    it qualifying that. "Covered only to the extent of Coverage 17" is qualified, and is
+    what star-health-assure actually says, so it is not a reversal."""
+    lowered = sentence.lower()
+    mentions_item = re.search(r"maternity|infertility|ivf|surrogacy", lowered)
+    says_covered = re.search(r"\b(covers?|covered|includes?|payable|pays? for)\b", lowered)
+    qualified = re.search(r"\b(not|no|except|exclu\w*|only|unless|subject)\b", lowered)
+    return bool(mentions_item and says_covered and not qualified)
+
+
+def test_the_reversal_check_recognises_a_reversal():
+    """The check above decides a live test, so it gets its own. The first sentence is
+    the shape of the answer that started this."""
+    assert claims_cover("The policy covers IVF, surrogacy and maternity expenses.")
+    assert claims_cover("Yes, maternity is covered.")
+    assert not claims_cover("The policy does not cover maternity or infertility treatment.")
+    assert not claims_cover("The provided policy documents do not cover this.")
+    assert not claims_cover("Infertility is covered only to the extent of Coverage 17.")
+    assert not claims_cover("Maternity expenses are excluded.")
+
+
+@pytest.mark.xfail(
+    strict=False,
+    reason="the 3B model refuses instead; prompt fixes tried so far regress other questions",
+)
+def test_a_real_model_recognises_an_exclusion_as_an_exclusion(live):
+    """The complete answer is "excluded", with citations. With section labels the model
+    gave it once, then refused ten times on the identical prompt - it sits on a
+    knife-edge. Two prompt wordings that fixed it each broke a question that had been
+    answered correctly (pre-existing disease waiting period, ambulance cover), so the
+    choice waits for the evaluation harness, which can measure the trade.
+
+    Not strict: on a knife-edge this sometimes passes, and a strict marker would turn
+    that into a random failure. The specimen policy also lists both under its
+    exclusions, so the question has a correct answer even without the real corpus."""
+    result = answer_question(MATERNITY, top_k=5)
+
+    assert result.answer.strip() != REFUSAL, "the documents do address this"
+    assert re.search(r"exclu|not (be )?(covered|payable)|shall not be liable",
+                     result.answer, re.IGNORECASE), result.answer
+    assert result.citations, result.answer

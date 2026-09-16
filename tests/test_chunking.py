@@ -1,6 +1,6 @@
 import re
 
-from policyiq.ingest.chunking import chunk_pages
+from policyiq.ingest.chunking import SECTION_TITLE_MAX_CHARS, chunk_pages
 
 
 def test_chunks_carry_the_page_they_came_from():
@@ -90,8 +90,13 @@ def test_real_corpus_respects_the_target(sample_pdf):
     chunks = chunk_pages(extract_pages(sample_pdf), target, overlap)
     assert chunks
     ceiling = target + overlap + 1
-    worst = max(len(c.content) for c in chunks)
-    assert worst <= ceiling, f"largest chunk {worst} chars, ceiling {ceiling}"
+    # The section line is outside the body budget (see chunk_pages), so the ceiling is
+    # checked against the body, and the section line against its own cap. Measuring the
+    # whole content would pass or fail depending on how long the nearest heading is.
+    worst = max(len(c.content.removeprefix(c.section).lstrip("\n")) for c in chunks)
+    assert worst <= ceiling, f"largest chunk body {worst} chars, ceiling {ceiling}"
+    section_cap = len("Section: ") + 2 * SECTION_TITLE_MAX_CHARS + len(" > ")
+    assert max(len(c.section) for c in chunks) <= section_cap
 
 
 def test_overlap_never_crosses_a_page_boundary():
