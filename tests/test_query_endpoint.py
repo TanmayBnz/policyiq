@@ -271,3 +271,30 @@ def test_a_real_model_says_so_when_the_documents_do_not_answer(live):
 
     assert re.search(r"do(es)? not|no information|not (specified|covered|mention)",
                      result.answer, re.IGNORECASE), result.answer
+
+
+REFUSAL = "The provided policy documents do not cover this."
+
+
+@pytest.mark.xfail(
+    strict=True,
+    reason="exclusion items reach the model without their section heading",
+)
+def test_a_real_model_recognises_an_exclusion_as_an_exclusion(live):
+    """The worst failure seen so far: asked this, the system said maternity and fertility
+    treatment were covered, citing the very clauses that exclude them. After making
+    generation deterministic it refuses instead - no longer reversed, still wrong,
+    because the documents do answer it. The specimen policy also lists both under its
+    exclusions, so the question has a correct answer even where the real corpus is
+    absent.
+
+    Strict xfail: when chunks carry their section, this passes, the run fails, and the
+    marker comes off."""
+    result = answer_question(
+        "Does the policy cover maternity expenses or infertility treatments?", top_k=5
+    )
+
+    assert result.answer.strip() != REFUSAL, "the documents do address this"
+    assert re.search(r"exclu|not (be )?(covered|payable)|shall not be liable",
+                     result.answer, re.IGNORECASE), result.answer
+    assert result.citations, result.answer
