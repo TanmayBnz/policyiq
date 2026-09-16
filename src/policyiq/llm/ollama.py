@@ -41,7 +41,18 @@ class OllamaProvider:
                 # Ollama streams by default, emitting one JSON object per token as
                 # newline-delimited JSON. Parsing that as a single object fails, so
                 # streaming is turned off explicitly rather than by omission.
-                json={"model": self.model, "prompt": prompt, "stream": False},
+                #
+                # Temperature 0 makes the model pick its most likely next word every
+                # time instead of sampling. Without it the same question over the same
+                # passages was answered on one run and refused on the next, which makes
+                # an answer impossible to test or evaluate. Determinism is not
+                # correctness: a wrong answer now stays reliably wrong.
+                json={
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {"temperature": 0},
+                },
                 timeout=self._timeout,
             )
             response.raise_for_status()

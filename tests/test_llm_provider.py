@@ -64,6 +64,23 @@ def test_generate_asks_for_a_single_response_rather_than_a_stream():
     assert seen["stream"] is False
 
 
+def test_generate_asks_for_deterministic_output():
+    """Ollama samples with randomness by default, so the same question over the same
+    passages could be answered on one run and refused on the next. An answer that
+    changes between identical requests cannot be tested or evaluated."""
+    seen: dict = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        import json
+
+        seen.update(json.loads(request.content))
+        return httpx.Response(200, json={"response": "ok"})
+
+    provider_over(handler).generate("anything")
+
+    assert seen.get("options", {}).get("temperature") == 0
+
+
 def test_generate_raises_when_the_model_server_returns_an_error():
     """A failure here must not be mistaken for an empty answer. An answer that silently
     becomes '' would be presented to a user as the policy saying nothing."""
