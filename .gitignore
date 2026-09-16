@@ -18,3 +18,7 @@ CLAUDE.md
 
 # Setuptools build metadata, regenerated on every editable install.
 *.egg-info/
+
+# Evaluation reports. Regenerated on every run; the numbers that matter are
+# recorded in the docs alongside the configuration that produced them.
+evaluation/results/

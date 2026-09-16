@@ -65,6 +65,26 @@ class OllamaProvider:
 
         return response.json()["response"].strip()
 
+    def unload(self) -> None:
+        """Drop the model from the server's memory, so the next request starts cold.
+
+        Exists for evaluation. Even at temperature 0, an answer here depended on which
+        prompts the server had processed before it - measured: 17 of 33 answers
+        changed between two identical runs, and 4 flipped between pass and fail. The
+        likeliest cause is the server reusing cached work for the opening a prompt
+        shares with the previous one, which shifts the arithmetic slightly. Unloading
+        before every question made answers identical whatever the order they ran in.
+        Not part of LLMProvider: it is specific to a local server, and serving real
+        traffic this way would reload the model on every request.
+        """
+        try:
+            self._client.post(
+                "/api/generate", json={"model": self.model, "keep_alive": 0},
+                timeout=self._timeout,
+            ).raise_for_status()
+        except httpx.HTTPError as exc:
+            raise RuntimeError(f"could not unload {self.model}: {exc}") from exc
+
     def healthy(self) -> bool:
         """Whether the server is reachable.
 

@@ -10,10 +10,15 @@ from policyiq.schemas import Citation, QueryResponse
 # page rather than reading the quote instead of the source.
 EXCERPT_CHARS = 300
 
+# The exact sentence the model is told to give when the excerpts do not answer. Named
+# so the evaluation harness recognises a refusal by the same string the prompt asks for,
+# rather than by a copy that could drift from it.
+REFUSAL = "The provided policy documents do not cover this."
+
 PROMPT_TEMPLATE = """You are answering questions about an insurance policy.
 
 Use ONLY the numbered excerpts below. If they do not contain the answer, say
-"The provided policy documents do not cover this." Do not use outside knowledge.
+"{refusal}" Do not use outside knowledge.
 
 Cite the excerpts you used with their bracketed numbers, for example [1] or [2].
 Cite only numbers that appear below.
@@ -29,7 +34,7 @@ def build_prompt(question: str, chunks: list[RetrievedChunk]) -> str:
     context = "\n\n".join(
         f"[{i}] {chunk.content.strip()}" for i, chunk in enumerate(chunks, start=1)
     )
-    return PROMPT_TEMPLATE.format(context=context, question=question)
+    return PROMPT_TEMPLATE.format(context=context, question=question, refusal=REFUSAL)
 
 
 # BUGFIX 2: excerpts were taken as `content.strip()[:300]`, starting at character 0.

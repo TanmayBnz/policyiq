@@ -1,0 +1,2071 @@
+[
+  {
+    "id": "ped-waiting-period",
+    "question": "What is the waiting period for pre-existing diseases?",
+    "category": "waiting-period",
+    "expect": "answer",
+    "evidence": "excluded until the expiry of (36|48) months",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          13
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          14
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          27
+        ]
+      }
+    ],
+    "must_match": [
+      "(36|48) months|(three|four|3|4) years"
+    ]
+  },
+  {
+    "id": "ped-waiting-2022-wording",
+    "question": "Under the Arogya Sanjeevani policy wordings effective 12th December 2022, how long is the waiting period for pre-existing diseases?",
+    "category": "waiting-period",
+    "expect": "answer",
+    "evidence": "excluded until the expiry of 48 months",
+    "documents": [
+      "w.e.f 12th Dec 2022"
+    ],
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          10
+        ]
+      }
+    ],
+    "must_match": [
+      "48 months|four years|4 years"
+    ],
+    "note": "Discriminating: this wording says 48 months where every other document says 36."
+  },
+  {
+    "id": "initial-waiting-period",
+    "question": "Is there a waiting period when the policy first starts?",
+    "category": "waiting-period",
+    "expect": "answer",
+    "evidence": "Waiting Period[^.]{0,20}Code\\s*[-–:]?\\s*Excl\\s*0?3\\b",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          13
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          29
+        ]
+      }
+    ],
+    "must_match": [
+      "30 days|thirty days"
+    ]
+  },
+  {
+    "id": "specified-disease-waiting",
+    "question": "What is the waiting period for specified diseases such as cataract and hernia?",
+    "category": "waiting-period",
+    "expect": "answer",
+    "evidence": "(Specific|Specified)[^.]{0,40}Waiting Period[^.]{0,20}Code\\s*[-–:]?\\s*Excl\\s*0?2\\b",
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          14
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          30,
+          33
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          28
+        ]
+      }
+    ],
+    "must_match": [
+      "24 months|two years|2 years"
+    ]
+  },
+  {
+    "id": "ambulance-limit",
+    "question": "How much does the Arogya Sanjeevani policy pay for a road ambulance?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "r ?oad ?ambulance[^.]{0,40}(maximum of|up to) Rs\\.? ?2,?000",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          1
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          8,
+          24
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          6
+        ]
+      }
+    ],
+    "must_match": [
+      "2,?000"
+    ],
+    "note": "Asked of Arogya Sanjeevani by name: other products set this limit differently or not at all, so another product's clause is a genuine miss."
+  },
+  {
+    "id": "co-payment",
+    "question": "Is there a co-payment on claims under Arogya Sanjeevani, and how much is it?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "co ?-? ?payment of 5 ?%|5 ?% co ?-? ?pay",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          13,
+          19
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          19,
+          20
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          15,
+          24
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          19,
+          20
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          20,
+          22
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          27,
+          29
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          13,
+          19
+        ]
+      }
+    ],
+    "must_match": [
+      "5 ?%"
+    ],
+    "note": "Asked of Arogya Sanjeevani by name: other products set this limit differently or not at all, so another product's clause is a genuine miss. Naming the product made retrieval worse: the name pulls in cover pages. One wording extracts as 'Co -payment'."
+  },
+  {
+    "id": "room-rent-limit",
+    "question": "What is the limit on room rent per day under Arogya Sanjeevani?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "up ?to 2 ?% of (the )?sum insured,? subject to (a )?maximum of Rs\\.? ?5,?000",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          6,
+          19
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          8,
+          20
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          7,
+          23
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7,
+          20
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          7,
+          21
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          10,
+          29
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          19
+        ]
+      }
+    ],
+    "must_match": [
+      "2 ?%",
+      "5,?000"
+    ],
+    "note": "Asked of Arogya Sanjeevani by name: other products set this limit differently or not at all, so another product's clause is a genuine miss."
+  },
+  {
+    "id": "icu-limit",
+    "question": "What is the daily limit for ICU charges under Arogya Sanjeevani?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "up ?to 5 ?% of (the )?sum insured,? subject to (a )?maximum of Rs\\.?,? ?10,?000",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          6,
+          19
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          8,
+          20
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          7,
+          23
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7,
+          20
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          7,
+          21
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          10,
+          29
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          6,
+          19
+        ]
+      }
+    ],
+    "must_match": [
+      "5 ?%",
+      "10,?000"
+    ],
+    "note": "Asked of Arogya Sanjeevani by name: other products set this limit differently or not at all, so another product's clause is a genuine miss."
+  },
+  {
+    "id": "cataract-limit",
+    "question": "What is the maximum amount Arogya Sanjeevani pays for cataract treatment?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "cataract[^.]{0,80}25 ?% of (the )?sum insured or Rs\\.? ?40,?000",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          1,
+          5
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          6,
+          19
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          9,
+          20
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          8,
+          24
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7,
+          20
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          8,
+          21
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          11,
+          29
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          19
+        ]
+      }
+    ],
+    "must_match": [
+      "25 ?%",
+      "40,?000"
+    ],
+    "note": "Asked of Arogya Sanjeevani by name: other products set this limit differently or not at all, so another product's clause is a genuine miss."
+  },
+  {
+    "id": "cumulative-bonus",
+    "question": "How does the cumulative bonus work in Arogya Sanjeevani for claim-free years?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "cumulative bonus.{0,160}?5 ?%.{0,160}?maximum of 50 ?%",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          7,
+          19
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          9,
+          20
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          9,
+          24
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          8,
+          20
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          12,
+          29
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          7,
+          19
+        ]
+      }
+    ],
+    "must_match": [
+      "5 ?%",
+      "50 ?%"
+    ],
+    "note": "Asked of Arogya Sanjeevani by name: other products set this limit differently or not at all, so another product's clause is a genuine miss."
+  },
+  {
+    "id": "pre-hospitalisation",
+    "question": "For how many days before admission are medical expenses covered?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "pre-? ?hospitali[sz]ation[^.]{0,150}\\b\\d{2,3} ?days",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          1
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          5,
+          6,
+          19
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          7,
+          9,
+          18,
+          20
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          6,
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          20
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          5,
+          21
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          7,
+          29
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          27,
+          50,
+          63
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          5,
+          19
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          10,
+          34,
+          46
+        ]
+      }
+    ],
+    "must_match": [
+      "\\b\\d{2,3} ?days"
+    ],
+    "note": "Differs by product: 30 days in Arogya Sanjeevani, 60 in Star Health Assure."
+  },
+  {
+    "id": "post-hospitalisation",
+    "question": "For how many days after discharge are medical expenses covered?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "post-? ?hospitali[sz]ation[^.]{0,150}\\b\\d{2,3} ?days",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          7,
+          19
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          7,
+          9,
+          18,
+          20
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          6,
+          8,
+          24
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7,
+          20
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          5,
+          8,
+          21
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          8,
+          29
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          7,
+          41
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          28,
+          50,
+          63
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          5,
+          7,
+          19
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          10,
+          34,
+          46
+        ]
+      }
+    ],
+    "must_match": [
+      "\\b\\d{2,3} ?days"
+    ],
+    "note": "Differs by product: 60 days in Arogya Sanjeevani, 180 in Elevate and Star Health Assure. The first version accepted only 60 and scored a correct Elevate retrieval as a miss. One wording prints '60days' with no space."
+  },
+  {
+    "id": "ayush-treatment",
+    "question": "Is AYUSH treatment such as Ayurveda or Homeopathy covered?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "AYUSH Treatment:? (The Company|We) shall indemnify",
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          12
+        ]
+      }
+    ],
+    "must_match": [
+      "cover|indemnif|payable|sum insured"
+    ],
+    "must_not_match": [
+      "(is|are) not covered"
+    ]
+  },
+  {
+    "id": "modern-treatments",
+    "question": "Are modern treatments such as robotic surgery covered?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "(Intra[ -]?vitreal injections?|Oral Chemotherapy)\\.?\\s+[A-Za-z0-9]{1,4}\\.?\\s+Robotic surgeries",
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          8,
+          24
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          10
+        ]
+      }
+    ],
+    "must_match": [
+      "robotic|modern"
+    ]
+  },
+  {
+    "id": "day-care",
+    "question": "Are day care treatments covered?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "all (the )?day ?car ?e treatments?|list of day care treatments",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          10
+        ]
+      }
+    ],
+    "must_match": [
+      "day ?care"
+    ],
+    "must_not_match": [
+      "(is|are) not covered"
+    ],
+    "note": "One Arogya document extracts as 'day car e treatments'."
+  },
+  {
+    "id": "maternity-excluded",
+    "question": "Does the policy cover maternity expenses or infertility treatments?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "(Maternity|Sterility and Infertility)[^.]{0,80}Code\\s*[-–:]?\\s*Excl\\s*1[78]",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          3,
+          4
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          12,
+          13
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          15,
+          16
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          17,
+          18
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          35
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          31
+        ]
+      }
+    ],
+    "must_match": [
+      "exclu|not (be )?(covered|payable)|shall not"
+    ],
+    "must_not_match": [
+      "(?<!not )\\b(covers|includes) (ivf|maternity|infertility)",
+      "\\b(maternity|infertility)[^.]{0,30}\\b(is|are) covered"
+    ],
+    "note": "The reversed answer that led to section labels. Known to fail as a refusal."
+  },
+  {
+    "id": "cosmetic-surgery-excluded",
+    "question": "Is cosmetic or plastic surgery covered?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "Cosmetic or plastic Surgery[^.]{0,30}Code\\s*[-–:]?\\s*Excl\\s*0?8",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          30
+        ]
+      }
+    ],
+    "must_match": [
+      "exclu|not (be )?(covered|payable)|shall not"
+    ]
+  },
+  {
+    "id": "adventure-sports-excluded",
+    "question": "Are injuries from hazardous or adventure sports covered?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "hazardous or adventure sports[^.]{0,30}Code\\s*[-–:]?\\s*Excl\\s*0?9",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          30
+        ]
+      }
+    ],
+    "must_match": [
+      "exclu|not (be )?(covered|payable)|shall not"
+    ]
+  },
+  {
+    "id": "refractive-error-excluded",
+    "question": "Is treatment to correct eyesight with glasses or refractive surgery covered?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "refractive error[^.]{0,40}Code\\s*[-–:]?\\s*Excl\\s*15",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          31
+        ]
+      }
+    ],
+    "must_match": [
+      "7\\.5|exclu|not (be )?(covered|payable)|shall not"
+    ]
+  },
+  {
+    "id": "obesity-surgery",
+    "question": "Is weight loss or obesity surgery covered?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "(Obesity|weight control)[^.]{0,40}Code\\s*[-–:]?\\s*Excl\\s*0?6",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          13
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          30
+        ]
+      }
+    ],
+    "must_match": [
+      "BMI|body mass|condition|exclu|not (be )?(covered|payable)|shall not"
+    ]
+  },
+  {
+    "id": "grace-period",
+    "question": "What is the grace period for paying the renewal premium?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "grace period of (15|30|thirty) days",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          19
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          15,
+          19
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          20,
+          24
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          35,
+          40
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          36,
+          37
+        ]
+      }
+    ],
+    "must_match": [
+      "(15|30|thirty|fifteen) days"
+    ]
+  },
+  {
+    "id": "free-look-period",
+    "question": "What is the free look period after buying the policy?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "free ?look period.{0,40}?(15|30|fifteen|thirty) days",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          22
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          36
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          19
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          38
+        ]
+      }
+    ],
+    "must_match": [
+      "(15|30|fifteen|thirty) days"
+    ]
+  },
+  {
+    "id": "moratorium-period",
+    "question": "After how many years can the insurer no longer contest a claim for non-disclosure?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "moratorium.{0,160}?(sixty|60) (continuous )?months|(sixty|60) (continuous )?months.{0,80}?moratorium",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          22
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          37,
+          38
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          22
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          38
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          37
+        ]
+      }
+    ],
+    "must_match": [
+      "60 months|sixty|five years|5 years"
+    ]
+  },
+  {
+    "id": "claim-documents-deadline",
+    "question": "Within how many days of discharge must reimbursement claim documents be submitted?",
+    "category": "claims",
+    "expect": "answer",
+    "evidence": "within (30|thirty|15|fifteen) days (of|from) (the )?(date of )?discharge",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          18
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          14
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          18
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          19
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          50
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          34
+        ]
+      }
+    ],
+    "must_match": [
+      "(30|thirty|15|fifteen) days"
+    ]
+  },
+  {
+    "id": "star-claim-deadline",
+    "question": "Under Star Health Assure, how soon after discharge must a reimbursement claim be filed?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "filed within 15 days from the date of discharge",
+    "documents": [
+      "star-health"
+    ],
+    "sources": [
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          34
+        ]
+      }
+    ],
+    "must_match": [
+      "15 days|fifteen days"
+    ],
+    "note": "Discriminating: Star allows 15 days where most documents allow 30."
+  },
+  {
+    "id": "hospital-definition",
+    "question": "How many beds must a hospital have to count as a hospital under the policy?",
+    "category": "definition",
+    "expect": "answer",
+    "evidence": "at least (10|ten|15|fifteen) in-? ?patient beds",
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          4
+        ]
+      }
+    ],
+    "must_match": [
+      "\\b(10|15|ten|fifteen)\\b",
+      "beds?"
+    ]
+  },
+  {
+    "id": "star-assisted-reproduction",
+    "question": "Does Star Health Assure cover assisted reproduction treatment such as IVF?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "Assisted Reproduction Treatment: The Company will reimburse",
+    "documents": [
+      "star-health"
+    ],
+    "sources": [
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          15
+        ]
+      }
+    ],
+    "must_match": [
+      "reimburs|cover|payable"
+    ],
+    "note": "Discriminating: Star partly covers what every other document excludes."
+  },
+  {
+    "id": "hdfc-secure-benefit",
+    "question": "What is the Secure Benefit in HDFC ERGO Optima Secure?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "Secure Benefit An additional amount",
+    "documents": [
+      "hdfc"
+    ],
+    "sources": [
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          18
+        ]
+      }
+    ],
+    "must_match": [
+      "additional|sum insured"
+    ]
+  },
+  {
+    "id": "niva-reassure-forever",
+    "question": "What does ReAssure Forever mean in Niva Bupa ReAssure?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "ReAssure .?Forever.?:? Enjoy unlimited Sum Insured",
+    "documents": [
+      "niva-bupa"
+    ],
+    "sources": [
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          7
+        ]
+      }
+    ],
+    "must_match": [
+      "unlimited|first (paid )?claim"
+    ]
+  },
+  {
+    "id": "niva-accidental-death",
+    "question": "Does Niva Bupa ReAssure pay a benefit on accidental death?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "Accidental Death benefit is paid",
+    "documents": [
+      "niva-bupa"
+    ],
+    "sources": [
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          15,
+          16
+        ]
+      }
+    ],
+    "must_match": [
+      "accident"
+    ],
+    "note": "Personal accident cover is optional. Page 25 of ReAssure 3 mentions accidental death only for a financial-guidance session, which is not a payout."
+  },
+  {
+    "id": "vehicle-mileage",
+    "question": "What is the annual mileage limit for a commercial goods vehicle?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked: 'motor vehicle' appears only in HDFC's definition of an ambulance."
+  },
+  {
+    "id": "laptop-theft",
+    "question": "Will the policy pay if my laptop is stolen?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked: no document mentions laptops, theft or burglary."
+  },
+  {
+    "id": "niva-trip-delay",
+    "question": "Does Niva Bupa ReAssure pay anything if my flight is delayed?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "Trip Dela ?y We will pay you",
+    "documents": [
+      "niva-bupa-reassure-3"
+    ],
+    "sources": [
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          29
+        ]
+      }
+    ],
+    "must_match": [
+      "12 (consecutive )?hours|delay"
+    ],
+    "note": "First written as an out-of-scope question with a refusal expected. The model answered it from this optional travel benefit, and was right: the corpus had never been searched for it. Every refusal case is now checked against the corpus text before being trusted."
+  },
+  {
+    "id": "pet-vet-bills",
+    "question": "Does the policy cover veterinary bills for my dog?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked: no document mentions veterinary care, pets or dogs."
+  },
+  {
+    "id": "house-fire",
+    "question": "Does the policy cover fire damage to my house?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked: 'house' appears only as 'house keeping charges' and 'in house' claims teams; 'building' only in addresses."
+  }
+]
