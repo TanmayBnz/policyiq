@@ -40,8 +40,8 @@ and a wrong answer from a misread clause have opposite fixes.
 identical runs gave different answers to 17 of 33 questions, and 4 flipped between pass
 and fail. Answers depended on what the model server had processed before them.
 Reloading the model before every question made answers identical regardless of order,
-at a cost of about 3.5 times the run time (667 s against 192 s for 35 questions). A `--warm` flag trades repeatability for
-speed and is recorded in the report.
+at a cost of about 3.5 times the run time (667 s against 192 s for 35 questions). A
+`--warm` flag trades repeatability for speed and is recorded in the report.
 
 **Every report records its configuration** — commit, model, top-k, chunk sizes, a
 prompt fingerprint, corpus size, cold or warm — because a number without its
