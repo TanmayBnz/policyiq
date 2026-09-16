@@ -154,3 +154,25 @@ def test_a_real_model_follows_a_simple_instruction(live_provider: LLMProvider):
     )
 
     assert "5" in answer
+
+
+def test_unload_asks_the_server_to_drop_the_model_now():
+    seen: dict = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        import json
+
+        seen.update(json.loads(request.content))
+        seen["path"] = request.url.path
+        return httpx.Response(200, json={})
+
+    provider_over(handler).unload()
+
+    assert seen == {"path": "/api/generate", "model": "test-model", "keep_alive": 0}
+
+
+def test_unload_raises_when_the_server_refuses():
+    provider = provider_over(lambda r: httpx.Response(500))
+
+    with pytest.raises(RuntimeError, match="unload"):
+        provider.unload()
