@@ -4,10 +4,11 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Response, UploadFile
 
+from policyiq.answer import answer_question
 from policyiq.db import db_healthy
 from policyiq.ingest.pipeline import ingest_pdf
 from policyiq.llm import get_provider
-from policyiq.schemas import IngestResult
+from policyiq.schemas import IngestResult, QueryRequest, QueryResponse
 
 
 def llm_healthy() -> bool:
@@ -76,3 +77,19 @@ def ingest(file: UploadFile) -> IngestResult:
         except ValueError as exc:
             # A document we cannot read is a problem with the request, not the server.
             raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+@app.post("/v1/query", response_model=QueryResponse)
+def query(request: QueryRequest) -> QueryResponse:
+    """Answer a question from the ingested documents, with citations.
+
+    Synchronous for the same reason as ingestion: embedding the question and waiting on
+    the model both block, and on the event loop that would stall every other request for
+    the length of a generation. FastAPI runs a `def` route in a worker thread.
+
+    No try/except around the model call. A model server that is down is a genuine server
+    fault - unlike a bad upload, it is not something the caller did - so a 500 is the
+    honest status, and `/readyz` reports the model server separately so an operator can
+    see why.
+    """
+    return answer_question(request.question, request.top_k)
