@@ -15,6 +15,13 @@ class IngestResult(BaseModel):
     chunk_count: int
 
 
+class DocumentSummary(BaseModel):
+    document_id: int
+    filename: str
+    page_count: int
+    chunk_count: int
+
+
 class Citation(BaseModel):
     """Where an answer came from.
 

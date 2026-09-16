@@ -3,12 +3,15 @@ import tempfile
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Response, UploadFile
+from fastapi.responses import HTMLResponse
 
 from policyiq.answer import answer_question
-from policyiq.db import db_healthy
+from policyiq.db import db_healthy, list_documents
 from policyiq.ingest.pipeline import ingest_pdf
 from policyiq.llm import get_provider
-from policyiq.schemas import IngestResult, QueryRequest, QueryResponse
+from policyiq.schemas import DocumentSummary, IngestResult, QueryRequest, QueryResponse
+
+DEMO_PAGE = Path(__file__).parent / "static" / "index.html"
 
 
 def llm_healthy() -> bool:
@@ -93,3 +96,25 @@ def query(request: QueryRequest) -> QueryResponse:
     see why.
     """
     return answer_question(request.question, request.top_k)
+
+
+@app.get("/v1/documents", response_model=list[DocumentSummary])
+def documents() -> list[DocumentSummary]:
+    """What is currently searchable. The demo page uses this to show the corpus."""
+    return [
+        DocumentSummary(document_id=d, filename=f, page_count=p, chunk_count=c)
+        for d, f, p, c in list_documents()
+    ]
+
+
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+def demo() -> str:
+    """A single-page demo, served by the API itself rather than hosted anywhere.
+
+    That is deliberate. Embedding and generation both run on this machine, and the
+    claim that no document text leaves it is the whole point - a hosted demo would send
+    insurer PDFs to someone else's database and someone else's model. The page is read
+    from disk per request so editing it does not require a restart; at this traffic
+    that costs nothing.
+    """
+    return DEMO_PAGE.read_text(encoding="utf-8")
