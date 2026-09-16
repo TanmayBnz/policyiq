@@ -6,7 +6,14 @@ from fastapi import FastAPI, HTTPException, Response, UploadFile
 
 from policyiq.db import db_healthy
 from policyiq.ingest.pipeline import ingest_pdf
+from policyiq.llm import get_provider
 from policyiq.schemas import IngestResult
+
+
+def llm_healthy() -> bool:
+    """Wrapped as a module-level function so readiness has one seam to check and to
+    substitute in tests, mirroring db_healthy."""
+    return get_provider().healthy()
 
 app = FastAPI(title="PolicyIQ", version="0.1.0")
 
@@ -27,7 +34,15 @@ def readyz(response: Response) -> dict[str, str]:
     to route traffic here. A failing readiness check removes the pod from the load
     balancer instead of killing it."""
     database = "ok" if db_healthy() else "unavailable"
-    llm = "unknown"  # wired in Task 8
+    llm = "ok" if llm_healthy() else "unavailable"
+
+    # Only the database gates readiness. The model server is a single external
+    # dependency shared by every replica, so marking them all unready during its outage
+    # removes the service from the load balancer without bringing it back - and stops
+    # ingestion, which needs no model at all, turning a partial outage into a total one.
+    # Nothing works without the database, so that one does gate.
+    #
+    # The model server's state is still reported, because an operator needs to see it.
     if database != "ok":
         response.status_code = 503
     return {"database": database, "llm": llm}
