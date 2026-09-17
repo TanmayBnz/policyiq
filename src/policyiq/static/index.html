@@ -4,108 +4,285 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PolicyIQ</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f5c55'/%3E%3Ctext x='16' y='21' font-family='Georgia,serif' font-size='14' font-weight='600' fill='white' text-anchor='middle'%3EIQ%3C/text%3E%3C/svg%3E">
+<!--
+  Self-contained on purpose: no web fonts, no CDN scripts. The project's claim is that
+  nothing leaves this machine, and a page that fetched from a third party on load would
+  quietly contradict it.
+-->
 <style>
   :root {
-    --bg: #fbfaf8; --panel: #ffffff; --ink: #1c1b19; --muted: #6b6862;
-    --line: #e5e1da; --accent: #7a4a2b; --ok: #2f6b3f; --warn: #8a5a12; --bad: #8a2f2f;
+    --bg: #f6f5f1; --panel: #ffffff; --sunk: #efede7; --ink: #1d1c1a; --muted: #6a675f;
+    --line: #e2dfd6; --accent: #1f5c55; --accent-ink: #ffffff; --accent-soft: #e3efec;
+    --ok: #2e6b3e; --warn: #8a5a12; --warn-soft: #f7eedd; --bad: #9a3030; --bad-soft: #f8e6e4;
+    --shadow: 0 1px 2px rgb(0 0 0 / .04), 0 4px 16px rgb(0 0 0 / .04);
+    --radius: 12px;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --serif: ui-serif, "Iowan Old Style", Charter, Georgia, serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #171614; --panel: #1f1e1b; --ink: #ecebe8; --muted: #9c978e;
-      --line: #322f2a; --accent: #d39b6f; --ok: #6fbf85; --warn: #d9ab5c; --bad: #e08a8a;
+      --bg: #141513; --panel: #1c1d1b; --sunk: #232421; --ink: #eae8e3; --muted: #9b978d;
+      --line: #2f302c; --accent: #6cbcaf; --accent-ink: #0f1a18; --accent-soft: #1f302d;
+      --ok: #7cc58f; --warn: #dcae5e; --warn-soft: #2e2618; --bad: #e59590; --bad-soft: #321e1d;
+      --shadow: none;
     }
   }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
-    margin: 0; padding: 24px 16px 64px; background: var(--bg); color: var(--ink);
-    font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.6 var(--sans);
   }
-  main { max-width: 860px; margin: 0 auto; }
-  header { margin-bottom: 4px; }
-  h1 { font-size: 22px; margin: 0 0 2px; letter-spacing: -0.01em; }
-  .sub { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
-  section {
-    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
-    padding: 16px; margin-bottom: 16px;
+  main { max-width: 880px; margin: 0 auto; padding: 32px 16px 64px; }
+  [hidden] { display: none !important; }
+
+  /* Header */
+  .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .mark {
+    width: 34px; height: 34px; border-radius: 9px; background: var(--accent); color: var(--accent-ink);
+    display: grid; place-items: center; font: 600 15px/1 var(--serif);
   }
-  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em;
-       color: var(--muted); margin: 0 0 12px; font-weight: 600; }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; }
-  input[type=text], input[type=file], select {
-    flex: 1 1 220px; min-width: 0; padding: 9px 10px; border: 1px solid var(--line);
-    border-radius: 7px; background: var(--bg); color: var(--ink); font: inherit;
+  h1 { font: 600 24px/1.2 var(--serif); margin: 0; letter-spacing: -0.01em; }
+  .tagline { color: var(--muted); font-size: 14px; margin: 12px 0 28px; max-width: 62ch; }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--panel); font-size: 12px; color: var(--muted);
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+  .pill.ok .dot { background: var(--ok); }
+  .pill.bad .dot { background: var(--bad); }
+  .pill.bad { color: var(--bad); }
+
+  /* Cards */
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 20px; margin-bottom: 16px;
+  }
+  h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted);
+    margin: 0 0 12px; font-weight: 600;
+  }
+
+  /* Ask */
+  .ask { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ask textarea {
+    flex: 1 1 100%; min-height: 54px; resize: vertical; padding: 12px 14px;
+    border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink);
+    font: 16px/1.5 var(--sans);
+  }
+  .ask textarea:focus, select:focus, button:focus-visible, .drop:focus-within {
+    outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent;
+  }
+  .controls { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex: 1 1 100%; flex-wrap: wrap; }
+  .hint { color: var(--muted); font-size: 12px; }
+  kbd { font: 11px var(--mono); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
+  select {
+    padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--panel); color: var(--ink); font: inherit; font-size: 14px;
   }
   button {
-    padding: 9px 16px; border: 1px solid var(--accent); border-radius: 7px;
-    background: var(--accent); color: #fff; font: inherit; font-weight: 500; cursor: pointer;
+    padding: 9px 18px; border: 0; border-radius: 8px; background: var(--accent); color: var(--accent-ink);
+    font: inherit; font-weight: 600; cursor: pointer;
   }
-  button:disabled { opacity: .5; cursor: default; }
-  .note { font-size: 13px; color: var(--muted); margin-top: 10px; min-height: 1.2em; }
-  .note.ok { color: var(--ok); } .note.bad { color: var(--bad); } .note.warn { color: var(--warn); }
-  .answer { white-space: pre-wrap; margin: 4px 0 0; }
-  .cite {
-    border-left: 3px solid var(--accent); padding: 8px 0 8px 12px; margin-top: 12px;
+  button:hover { filter: brightness(1.08); }
+  button:disabled { opacity: .5; cursor: default; filter: none; }
+  button.ghost {
+    background: transparent; color: var(--ink); border: 1px solid var(--line); font-weight: 500;
+    padding: 5px 11px; font-size: 13px;
   }
-  .cite .where { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-  .cite .quote { font-size: 13px; }
+  .examples { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+
+  .note { font-size: 13px; color: var(--muted); margin: 10px 0 0; min-height: 1.2em; }
+  .note:empty { display: none; }
+  .note.ok { color: var(--ok); } .note.bad { color: var(--bad); }
+
+  /* Working state */
+  .working { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14px; margin-top: 16px; }
+  .spinner {
+    width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line);
+    border-top-color: var(--accent); animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
+
+  /* Answer */
+  .result { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 18px; }
+  .asked { color: var(--muted); font-size: 13px; margin: 0 0 6px; }
+  .answer { font: 17px/1.65 var(--serif); margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .marker {
+    display: inline-block; min-width: 1.5em; padding: 0 5px; margin: 0 1px; border-radius: 5px;
+    background: var(--accent-soft); color: var(--accent); font: 600 12px/1.6 var(--sans);
+    text-align: center; vertical-align: 2px; text-decoration: none; cursor: pointer;
+  }
+  .marker.dead { background: var(--sunk); color: var(--muted); cursor: default; }
+  .banner {
+    border-radius: 10px; padding: 12px 14px; font-size: 14px; margin-top: 14px;
+    background: var(--warn-soft); color: var(--warn);
+  }
+  .banner.bad { background: var(--bad-soft); color: var(--bad); }
+  .meta { color: var(--muted); font-size: 12px; margin-top: 12px; }
+
+  .sources { margin-top: 20px; display: grid; gap: 10px; }
+  .source {
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--bg);
+    transition: border-color .3s, box-shadow .3s;
+  }
+  .source.flash { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .source-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+  .doc { font-weight: 600; font-size: 13px; overflow-wrap: anywhere; }
+  .page { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .quote { font-size: 13.5px; color: var(--ink); opacity: .88; margin: 0; overflow-wrap: anywhere; }
+
+  /* Documents */
+  .split { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .drop {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    border: 1.5px dashed var(--line); border-radius: 10px; padding: 22px 16px; text-align: center;
+    position: relative; background: var(--bg); cursor: pointer; transition: border-color .2s, background .2s;
+  }
+  .drop.over { border-color: var(--accent); background: var(--accent-soft); }
+  .drop strong { font-size: 14px; }
+  .drop span { color: var(--muted); font-size: 12px; }
+  .drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+  details summary {
+    cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary h2 { margin: 0; }
+  details summary .count { color: var(--muted); font-size: 13px; }
+  details summary .count::after { content: " ▾"; }
+  details[open] summary .count::after { content: " ▴"; }
+  .table-wrap { overflow-x: auto; margin-top: 12px; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+  td:first-child { overflow-wrap: anywhere; }
   th { color: var(--muted); font-weight: 500; }
-  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
-  .empty { color: var(--muted); font-size: 13px; }
+  tfoot th { color: var(--ink); font-weight: 600; border-bottom: 0; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .empty { color: var(--muted); font-size: 13px; margin: 12px 0 0; }
+
   footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 28px; }
-  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+  footer a { color: inherit; }
+
+  @media (max-width: 520px) {
+    main { padding-top: 20px; }
+    .card { padding: 16px; }
+    .answer { font-size: 16px; }
+    .controls button { flex: 1; }
+  }
 </style>
 </head>
 <body>
 <main>
   <header>
-    <h1>PolicyIQ</h1>
-    <p class="sub">
-      Question answering over insurance policy documents, with citations to a real page.
-      Everything &mdash; parsing, embeddings and the language model &mdash; runs on this
-      machine. No document text leaves it.
+    <div class="top">
+      <div class="brand">
+        <div class="mark" aria-hidden="true">IQ</div>
+        <h1>PolicyIQ</h1>
+      </div>
+      <div class="pills" aria-live="polite">
+        <span class="pill" id="pill-db"><span class="dot"></span>database</span>
+        <span class="pill" id="pill-llm"><span class="dot"></span>model</span>
+        <span class="pill">runs on this machine</span>
+      </div>
+    </div>
+    <p class="tagline">
+      Ask about your insurance policy documents. Every answer cites the document and page
+      it came from. Parsing, search and the language model all run locally, so no
+      document text leaves this machine.
     </p>
   </header>
 
-  <section>
-    <h2>Add a document</h2>
-    <form class="row" id="upload">
-      <input type="file" id="pdf" accept="application/pdf,.pdf" required>
-      <button type="submit" id="upload-btn">Ingest</button>
+  <section class="card" aria-labelledby="ask-title">
+    <h2 id="ask-title">Ask a question</h2>
+    <form class="ask" id="ask">
+      <textarea id="question" rows="2" required
+        placeholder="What is the waiting period for pre-existing diseases?"></textarea>
+      <div class="controls">
+        <span class="hint"><kbd>Enter</kbd> to ask &middot; <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line</span>
+        <span style="display:flex;gap:8px;align-items:center">
+          <select id="topk" aria-label="Passages to retrieve">
+            <option value="3">3 passages</option>
+            <option value="5" selected>5 passages</option>
+            <option value="8">8 passages</option>
+          </select>
+          <button type="submit" id="ask-btn">Ask</button>
+        </span>
+      </div>
     </form>
-    <p class="note" id="upload-note">Parsing and embedding a long policy takes a few seconds.</p>
-  </section>
+    <div class="examples" id="examples" aria-label="Example questions"></div>
+    <p class="note" id="ask-note" role="status"></p>
 
-  <section>
-    <h2>Ask a question</h2>
-    <form class="row" id="ask">
-      <input type="text" id="question" placeholder="What is the waiting period for pre-existing diseases?" required>
-      <select id="topk" aria-label="Passages to retrieve">
-        <option value="3">3 passages</option>
-        <option value="5" selected>5 passages</option>
-        <option value="8">8 passages</option>
-      </select>
-      <button type="submit" id="ask-btn">Ask</button>
-    </form>
-    <p class="note" id="ask-note"></p>
-    <div id="result" hidden>
+    <div class="working" id="working" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <span id="working-text">Searching and generating…</span>
+    </div>
+
+    <div class="result" id="result" hidden>
+      <p class="asked" id="asked"></p>
       <p class="answer" id="answer"></p>
-      <div id="citations"></div>
+      <div id="banner"></div>
+      <div class="sources" id="citations"></div>
+      <p class="meta" id="meta"></p>
     </div>
   </section>
 
-  <section>
-    <h2>Documents searched</h2>
-    <div id="corpus"><p class="empty">Loading&hellip;</p></div>
-  </section>
+  <div class="split">
+    <section class="card" aria-labelledby="add-title">
+      <h2 id="add-title">Add a document</h2>
+      <form id="upload">
+        <label class="drop" id="drop">
+          <input type="file" id="pdf" accept="application/pdf,.pdf" required>
+          <strong id="drop-label">Drop a PDF here, or click to choose</strong>
+          <span>Documents are checked before they are stored. A long policy takes a minute or two to embed.</span>
+        </label>
+        <div style="display:flex;justify-content:flex-end;margin-top:10px">
+          <button type="submit" id="upload-btn" disabled>Ingest</button>
+        </div>
+      </form>
+      <p class="note" id="upload-note" role="status"></p>
+    </section>
 
-  <footer id="status">&nbsp;</footer>
+    <section class="card">
+      <details id="corpus-box">
+        <summary><h2>Documents searched</h2><span class="count" id="corpus-count">loading…</span></summary>
+        <div id="corpus"></div>
+      </details>
+    </section>
+  </div>
+
+  <footer>
+    PolicyIQ &middot; <a href="/docs">API reference</a>
+  </footer>
 </main>
 
 <script>
 const $ = (id) => document.getElementById(id);
 const say = (el, text, kind) => { el.textContent = text; el.className = "note" + (kind ? " " + kind : ""); };
+
+// Must match REFUSAL in answer.py. Used only to style the reply, never to decide it.
+const REFUSAL = "The provided policy documents do not cover this.";
+
+const EXAMPLES = [
+  "What is the waiting period for pre-existing diseases?",
+  "Is maternity covered?",
+  "What is the room rent limit in Arogya Sanjeevani?",
+  "How long do I have to submit a claim?",
+];
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+// "Policy_Document_Arogya.pdf" -> "Policy Document Arogya". Display only; the real
+// filename stays in the title attribute.
+const prettyName = (f) => f.replace(/\.pdf$/i, "").replace(/[_]+/g, " ").trim();
 
 async function call(url, options) {
   const response = await fetch(url, options);
@@ -119,35 +296,81 @@ async function call(url, options) {
   return body;
 }
 
+/* ---- status ---- */
+
+function setPill(id, label, state) {
+  const pill = $(id);
+  pill.className = "pill " + (state === "ok" ? "ok" : "bad");
+  pill.lastChild.textContent = state === "ok" ? label : `${label} unavailable`;
+}
+
+async function refreshStatus() {
+  try {
+    const s = await (await fetch("/readyz")).json();
+    setPill("pill-db", "database", s.database);
+    setPill("pill-llm", "model", s.llm);
+  } catch {
+    setPill("pill-db", "database", "down");
+    setPill("pill-llm", "model", "down");
+  }
+}
+
+/* ---- corpus ---- */
+
 async function refreshCorpus() {
   const target = $("corpus");
   try {
     const docs = await call("/v1/documents");
     if (!docs.length) {
-      target.innerHTML = '<p class="empty">Nothing ingested yet. Add a PDF above.</p>';
+      $("corpus-count").textContent = "none yet";
+      target.innerHTML = '<p class="empty">Nothing ingested yet. Add a PDF to start.</p>';
+      $("corpus-box").open = true;
       return;
     }
+    const pages = docs.reduce((a, d) => a + d.page_count, 0);
+    const chunks = docs.reduce((a, d) => a + d.chunk_count, 0);
+    $("corpus-count").textContent =
+      `${docs.length} documents · ${pages.toLocaleString()} pages · ${chunks.toLocaleString()} passages`;
     const rows = docs.map((d) => `<tr>
-        <td>${escapeHtml(d.filename)}</td>
+        <td title="${escapeHtml(d.filename)}">${escapeHtml(prettyName(d.filename))}</td>
         <td class="n">${d.page_count}</td>
         <td class="n">${d.chunk_count}</td>
       </tr>`).join("");
-    const pages = docs.reduce((a, d) => a + d.page_count, 0);
-    const chunks = docs.reduce((a, d) => a + d.chunk_count, 0);
-    target.innerHTML = `<table>
+    target.innerHTML = `<div class="table-wrap"><table>
         <thead><tr><th>Document</th><th class="n">Pages</th><th class="n">Passages</th></tr></thead>
         <tbody>${rows}</tbody>
         <tfoot><tr><th>${docs.length} documents</th><th class="n">${pages}</th><th class="n">${chunks}</th></tr></tfoot>
-      </table>`;
+      </table></div>`;
   } catch (err) {
+    $("corpus-count").textContent = "unavailable";
     target.innerHTML = `<p class="empty">Could not list documents: ${escapeHtml(err.message)}</p>`;
   }
 }
 
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+/* ---- upload ---- */
+
+function chooseFile(file) {
+  $("drop-label").textContent = file ? file.name : "Drop a PDF here, or click to choose";
+  $("upload-btn").disabled = !file;
 }
+
+$("pdf").addEventListener("change", () => chooseFile($("pdf").files[0]));
+
+const drop = $("drop");
+["dragenter", "dragover"].forEach((t) => drop.addEventListener(t, (e) => {
+  e.preventDefault(); drop.classList.add("over");
+}));
+["dragleave", "drop"].forEach((t) => drop.addEventListener(t, (e) => {
+  e.preventDefault(); drop.classList.remove("over");
+}));
+drop.addEventListener("drop", (e) => {
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  const list = new DataTransfer();
+  list.items.add(file);
+  $("pdf").files = list.files;
+  chooseFile(file);
+});
 
 $("upload").addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -156,59 +379,140 @@ $("upload").addEventListener("submit", async (event) => {
   const form = new FormData();
   form.append("file", file);
   $("upload-btn").disabled = true;
-  say($("upload-note"), `Ingesting ${file.name}…`);
+  say($("upload-note"), `Checking and embedding ${file.name}…`);
   try {
     const r = await call("/v1/ingest", { method: "POST", body: form });
     say($("upload-note"), `${r.filename}: ${r.page_count} pages, ${r.chunk_count} passages stored.`, "ok");
     $("upload").reset();
+    chooseFile(null);
     refreshCorpus();
   } catch (err) {
     say($("upload-note"), err.message, "bad");
-  } finally {
     $("upload-btn").disabled = false;
   }
 });
 
+/* ---- ask ---- */
+
+EXAMPLES.forEach((q) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "ghost";
+  b.textContent = q;
+  b.addEventListener("click", () => { $("question").value = q; $("ask").requestSubmit(); });
+  $("examples").appendChild(b);
+});
+
+$("question").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+    e.preventDefault();
+    $("ask").requestSubmit();
+  }
+});
+
+// The server returns citations in the order their [n] markers first appear in the
+// answer, keeping only markers that point at a retrieved passage. Replaying that rule
+// here tells us which card each marker belongs to. If the count disagrees, the
+// markers are shown unlinked rather than linked to the wrong source.
+function markerTargets(answer, citationCount, topK) {
+  const seen = [];
+  for (const m of answer.matchAll(/\[(\d+)\]/g)) {
+    const n = Number(m[1]);
+    if (n >= 1 && n <= topK && !seen.includes(n)) seen.push(n);
+  }
+  return seen.length === citationCount ? seen : null;
+}
+
+function renderAnswer(answer, targets) {
+  return escapeHtml(answer).replace(/\[(\d+)\]/g, (whole, digits) => {
+    const n = Number(digits);
+    const i = targets ? targets.indexOf(n) : -1;
+    return i >= 0
+      ? `<a class="marker" href="#source-${i}" data-source="${i}" title="Show source">${n}</a>`
+      : `<span class="marker dead" title="Not a retrieved passage">${n}</span>`;
+  });
+}
+
+$("answer").addEventListener("click", (e) => {
+  const link = e.target.closest("[data-source]");
+  if (!link) return;
+  e.preventDefault();
+  const card = $("source-" + link.dataset.source);
+  // Instant, not smooth: smooth scrolling was measured not to move the page at all
+  // in some browser states, and the highlight already shows where to look.
+  card.scrollIntoView({ block: "center" });
+  card.classList.add("flash");
+  setTimeout(() => card.classList.remove("flash"), 1200);
+});
+
+let ticker = null;
+
 $("ask").addEventListener("submit", async (event) => {
   event.preventDefault();
   const question = $("question").value.trim();
-  if (!question) return;
+  if (!question || $("ask-btn").disabled) return;
+  const topK = Number($("topk").value);
+
   $("ask-btn").disabled = true;
   $("result").hidden = true;
-  say($("ask-note"), "Searching and generating…");
+  $("working").hidden = false;
+  say($("ask-note"), "");
+  // A 3B model on a small GPU takes several seconds. A visible clock says "working",
+  // not "stuck".
+  const started = performance.now();
+  const tick = () => {
+    const s = ((performance.now() - started) / 1000).toFixed(0);
+    $("working-text").textContent = `Searching the documents and writing an answer… ${s}s`;
+  };
+  tick();
+  ticker = setInterval(tick, 500);
+
   try {
     const r = await call("/v1/query", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, top_k: Number($("topk").value) }),
+      body: JSON.stringify({ question, top_k: topK }),
     });
-    $("answer").textContent = r.answer;
-    $("citations").innerHTML = r.citations.length
-      ? r.citations.map((c) => `<div class="cite">
-            <div class="where">${escapeHtml(c.filename)} &middot; page ${c.page_number}</div>
-            <div class="quote">${escapeHtml(c.excerpt)}</div>
-          </div>`).join("")
-      : '<p class="empty" style="margin-top:12px">No sources cited &mdash; the answer was not drawn from the documents.</p>';
+    const seconds = ((performance.now() - started) / 1000).toFixed(1);
+    const targets = markerTargets(r.answer, r.citations.length, topK);
+    const refused = r.answer.toLowerCase().startsWith(REFUSAL.toLowerCase());
+
+    $("asked").textContent = question;
+    $("answer").innerHTML = renderAnswer(r.answer, targets);
+
+    let banner = "";
+    if (refused) {
+      banner = `<div class="banner">No answer was found in the ${topK} most relevant passages.
+        Try naming the policy, or rephrasing with the words a policy would use.</div>`;
+    } else if (!r.citations.length) {
+      banner = `<div class="banner bad">This answer cites no retrieved passage, so it is not
+        grounded in the documents. Treat it as unverified.</div>`;
+    }
+    $("banner").innerHTML = banner;
+
+    $("citations").innerHTML = r.citations.map((c, i) => `
+      <article class="source" id="source-${i}">
+        <div class="source-head">
+          ${targets ? `<span class="marker">${targets[i]}</span>` : ""}
+          <span class="doc" title="${escapeHtml(c.filename)}">${escapeHtml(prettyName(c.filename))}</span>
+          <span class="page">page ${c.page_number}</span>
+        </div>
+        <p class="quote">${escapeHtml(c.excerpt)}</p>
+      </article>`).join("");
+
+    const n = r.citations.length;
+    $("meta").textContent = `${n} source${n === 1 ? "" : "s"} cited · ${topK} passages searched · ${seconds}s`;
     $("result").hidden = false;
-    say($("ask-note"), "");
   } catch (err) {
     say($("ask-note"), err.message, "bad");
   } finally {
+    clearInterval(ticker);
+    $("working").hidden = true;
     $("ask-btn").disabled = false;
   }
 });
 
-(async function showStatus() {
-  try {
-    const r = await fetch("/readyz");
-    const s = await r.json();
-    const line = `database: ${s.database} · model: ${s.llm}`;
-    $("status").textContent = s.llm === "ok" ? line : line + " — questions will fail until the model server is reachable";
-  } catch {
-    $("status").textContent = "service unreachable";
-  }
-})();
-
+refreshStatus();
 refreshCorpus();
 </script>
 </body>
