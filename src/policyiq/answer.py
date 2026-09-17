@@ -3,7 +3,8 @@ import re
 from policyiq.config import settings
 from policyiq.ingest.chunking import SECTION_PREFIX
 from policyiq.llm import get_provider
-from policyiq.retrieval.vector import RetrievedChunk, vector_search
+from policyiq.retrieval.search import retrieve
+from policyiq.retrieval.vector import RetrievedChunk
 from policyiq.schemas import Citation, QueryResponse
 
 # Long enough for a clause to be recognisable, short enough that a reader checks the
@@ -83,7 +84,7 @@ def _cited_markers(answer: str, maximum: int) -> list[int]:
 
 def answer_question(question: str, top_k: int | None = None) -> QueryResponse:
     k = top_k or settings.retrieval_top_k
-    chunks = vector_search(question, k)
+    chunks = retrieve(question, k)
     if not chunks:
         return QueryResponse(
             answer="No documents have been ingested yet.", citations=[]

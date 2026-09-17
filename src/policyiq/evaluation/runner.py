@@ -19,7 +19,7 @@ from policyiq.db import list_documents
 from policyiq.evaluation.cases import Case
 from policyiq.evaluation.scoring import score_answer, score_retrieval
 from policyiq.llm import get_provider
-from policyiq.retrieval.vector import vector_search
+from policyiq.retrieval.search import retrieve
 
 
 @dataclass
@@ -54,7 +54,7 @@ def missing_documents(cases: list[Case]) -> list[str]:
 
 def run_case(case: Case, top_k: int, generate: bool, cold: bool = True) -> CaseResult:
     started = time.perf_counter()
-    chunks = vector_search(case.question, top_k)
+    chunks = retrieve(case.question, top_k)
     result = CaseResult(
         id=case.id, category=case.category, expect=case.expect, question=case.question,
         retrieved=[
@@ -149,6 +149,13 @@ def configuration(top_k: int, generate: bool, cold: bool) -> dict:
     return {
         "commit": commit + ("+uncommitted" if dirty else ""),
         "top_k": top_k,
+        # Which retriever produced the retrieval numbers. Without it, a vector-only
+        # report and a hybrid one look like the same system scoring differently.
+        "retrieval_mode": settings.retrieval_mode,
+        "retrieval_candidates": (
+            settings.retrieval_candidates if settings.retrieval_mode == "hybrid" else None
+        ),
+        "rrf_k": settings.rrf_k if settings.retrieval_mode == "hybrid" else None,
         "generate": generate,
         # Warm runs are faster and not repeatable; never compare one with a cold run.
         "cold_model": cold if generate else None,
