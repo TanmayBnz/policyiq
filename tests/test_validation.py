@@ -7,8 +7,6 @@ measurements over the working corpus, recorded alongside each constant.
 
 from pathlib import Path
 
-import pytest
-
 from policyiq.ingest.pdf import extract_pages
 from policyiq.ingest.validation import check_document
 
@@ -89,8 +87,16 @@ def test_every_document_in_the_working_corpus_passes(sample_pdf: Path):
     assert check_document(extract_pages(sample_pdf)) == []
 
 
-@pytest.mark.parametrize("pdf", sorted(Path("data/policies").glob("*.pdf")))
-def test_each_real_corpus_document_passes(pdf: Path):
-    """Skipped in CI, where the corpus is absent; locally this is the check that
-    stops a threshold being tightened into rejecting good documents."""
-    assert check_document(extract_pages(pdf)) == []
+def test_each_real_corpus_document_passes(synthetic_policy: Path):
+    """Locally, the check that stops a threshold being tightened into rejecting good
+    documents.
+
+    This was parametrised over the corpus directory. In CI, where the corpus is absent,
+    that produced an empty parameter set, which pytest reports as a skip - the test
+    quietly did nothing on every pull request. With no corpus it now checks the
+    generated specimen instead, so it always runs and always asserts something.
+    """
+    corpus = sorted(Path("data/policies").glob("*.pdf")) or [synthetic_policy]
+    rejected = {pdf.name: check_document(extract_pages(pdf)) for pdf in corpus}
+
+    assert {name: found for name, found in rejected.items() if found} == {}
