@@ -72,10 +72,19 @@ def _excerpt(content: str, limit: int) -> str:
     return text[:limit].strip()
 
 
+# The prompt asks for "[1]", and the 3B model writes exactly that. A larger model, given the
+# same prompt, wrote "[2\u2020L24-L28]" (a line-range suffix) and "\u30101\u3011" (fullwidth
+# brackets). The old pattern, `\[(\d+)\]`, matched neither, so every citation vanished and
+# a correct, well-sourced answer was reported as having no source - 12 of 15 "failures" in
+# the 2026-10-06 hosted run. Only the number matters: it is looked up in the retrieved
+# chunks, and page numbers still come from the database, never from the model.
+_MARKER = re.compile(r"[\[\u3010](\d+)(?:\u2020[^\]\u3011]*)?[\]\u3011]")
+
+
 def _cited_markers(answer: str, maximum: int) -> list[int]:
     """Extract markers the model actually used, deduplicated, in order of appearance."""
     seen: list[int] = []
-    for match in re.findall(r"\[(\d+)\]", answer):
+    for match in _MARKER.findall(answer):
         n = int(match)
         if 1 <= n <= maximum and n not in seen:
             seen.append(n)

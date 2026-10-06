@@ -293,6 +293,8 @@ def test_a_run_summarises_retrieval_and_answers(fixed_system):
     assert summary["retrieval"] == {
         "answerable_cases": 1,
         "hit_at_k": 1.0,
+        # One answerable case cannot support a confident rate; the interval says so.
+        "hit_at_k_ci95": (0.207, 1.0),
         "mrr": 0.5,
         "precision_at_k": 0.5,
         "misses": [],
@@ -364,3 +366,53 @@ def test_a_gold_document_that_is_not_ingested_stops_the_run(fixed_system):
 
     with pytest.raises(RuntimeError, match="missing.pdf"):
         runner.run([case], top_k=2, generate=False)
+
+
+# --- tolerance for a larger model's typography -------------------------------------
+# From the 2026-10-06 hosted run: right answers scored as failures because of how the
+# model typed. Each case below is a real string from that run's saved answers.
+
+
+def test_scorer_ignores_narrow_no_break_space_and_non_breaking_hyphen():
+    case = answerable(must_match=[r"5 ?%", r"pre-existing"])
+    answer = "Limited to 5 % of the sum insured for pre‑existing diseases."
+    assert score_answer(QueryResponse(answer=answer, citations=[cite("a.pdf", 3)]), case).passed
+
+
+def test_cited_markers_accepts_the_formats_a_larger_model_writes():
+    from policyiq.answer import _cited_markers
+
+    assert _cited_markers("Yes [1] and [3].", 5) == [1, 3]
+    assert _cited_markers("Covered【2†L24-L28】.", 5) == [2]  # fullwidth + range
+    assert _cited_markers("Covered [2†L24-L28][3†i].", 5) == [2, 3]
+    # Unchanged behaviour: out-of-range and repeated markers are still dropped.
+    assert _cited_markers("[9] [1] [1]", 5) == [1]
+    assert _cited_markers("no markers at all", 5) == []
+
+
+# --- confidence interval ------------------------------------------------------------
+
+
+def test_wilson_interval_stays_inside_zero_and_one_and_is_not_degenerate():
+    from policyiq.evaluation.scoring import wilson_interval
+
+    lo, hi = wilson_interval(21, 35)
+    assert 0.42 < lo < 0.46 and 0.72 < hi < 0.76  # 0.60, +/- about 0.16
+    # Every case passing must not claim certainty; none passing must not go below zero.
+    assert wilson_interval(35, 35)[1] == 1.0 and wilson_interval(35, 35)[0] < 0.95
+    assert wilson_interval(0, 35)[0] == 0.0 and wilson_interval(0, 35)[1] > 0.0
+    assert wilson_interval(0, 0) == (0.0, 0.0)
+    # More data narrows it: the whole reason to grow the set.
+    assert (lambda r: r[1] - r[0])(wilson_interval(60, 100)) < (lambda r: r[1] - r[0])(
+        wilson_interval(21, 35)
+    )
+
+
+# --- split ------------------------------------------------------------------------
+
+
+def test_cases_default_to_dev_and_accept_held_out():
+    assert answerable().split == "dev"
+    assert answerable(split="held-out").split == "held-out"
+    with pytest.raises(ValueError):
+        answerable(split="test")

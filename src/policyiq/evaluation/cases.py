@@ -59,6 +59,14 @@ class Case(BaseModel):
     must_not_match: list[str] = []
     note: str = ""
 
+    # Which half of the set a case belongs to. "dev" cases are the ones you read, tune
+    # prompts against and argue about. "held-out" cases are written and then left alone
+    # until the final number: a prompt tuned until 35 questions pass has learned those 35
+    # questions, and only questions it never saw can say whether it learned anything
+    # else. The runner defaults to dev for exactly that reason - a held-out run is a
+    # deliberate act (`--split held-out`), not something a routine rerun does by accident.
+    split: Literal["dev", "held-out"] = "dev"
+
     @field_validator("evidence", "must_match", "must_not_match")
     @classmethod
     def patterns_compile(cls, value):

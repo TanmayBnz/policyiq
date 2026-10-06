@@ -6,6 +6,7 @@ clause", and those have opposite fixes - one is search, the other is the prompt 
 model. The maternity failure was the second kind, and only looked like the first.
 """
 
+import math
 import re
 from dataclasses import dataclass, field
 
@@ -50,6 +51,44 @@ def score_retrieval(chunks: list[RetrievedChunk], case: Case) -> RetrievalScore:
     return RetrievalScore(k=len(chunks), relevant_ranks=ranks)
 
 
+# Typography a larger model adds on its own. Seen in the 2026-10-06 hosted run: "5 %" with
+# a narrow no-break space, and a non-breaking hyphen in "pre-existing". Every one made a
+# correct answer fail a regex written with ordinary characters, so the score measured how
+# the model types, not whether it was right. Normalised before matching, in the scorer only
+# - the answer shown to a user is left exactly as the model wrote it.
+_TYPOGRAPHY = str.maketrans(
+    {
+        "\u202f": " ",  # narrow no-break space
+        "\u00a0": " ",  # no-break space
+        "\u2011": "-",  # non-breaking hyphen
+        "\u2013": "-",  # en dash
+        "\u2019": "'",  # curly apostrophe
+    }
+)
+
+
+def normalise_answer(text: str) -> str:
+    return text.translate(_TYPOGRAPHY)
+
+
+def wilson_interval(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
+    """95% confidence interval for a pass rate.
+
+    Wilson, not the textbook p +/- z*sqrt(p(1-p)/n): that one gives an interval that
+    spills past 0 or 1 and collapses to zero width when every case passes, which is
+    exactly where a small test set needs honesty most. 21 of 35 is 0.60, but the
+    interval is roughly 0.43 to 0.74 - a change of two questions is well inside it, and
+    printing it next to the rate is what stops a two-question change being read as a win.
+    """
+    if n == 0:
+        return (0.0, 0.0)
+    p = successes / n
+    denom = 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / denom
+    half = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / denom
+    return (round(max(0.0, centre - half), 3), round(min(1.0, centre + half), 3))
+
+
 def is_refusal(answer: str) -> bool:
     """Starts with the sentence the prompt prescribes.
 
@@ -73,7 +112,7 @@ class AnswerScore:
 
 
 def score_answer(response: QueryResponse, case: Case) -> AnswerScore:
-    answer = response.answer
+    answer = normalise_answer(response.answer)
     score = AnswerScore(citations=len(response.citations))
     gold = case.gold_pages()
     score.citations_on_gold = sum((c.filename, c.page_number) in gold for c in response.citations)
