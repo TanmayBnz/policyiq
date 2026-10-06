@@ -8,7 +8,7 @@ text leaves the machine — which is not a limitation worked around but the depl
 model a regulated insurer would require.
 
 > **Status: in progress.** Ingestion, vector and keyword search, grounded answers with citations,
-> and an evaluation harness are built and tested. Deployment is next. See [Roadmap](#roadmap) for what exists today versus what is planned, and
+> and an evaluation harness are built and tested. Next: fewer refusals, and a larger evaluation set. See [Roadmap](#roadmap) for what exists today versus what is planned, and
 > [Evaluation](#evaluation) for how well it currently works.
 
 ---
@@ -173,7 +173,7 @@ measuring. Details in [ADR 0002](docs/adr/0002-evaluation-harness.md).
 | ✅ | Keyword search and reciprocal rank fusion (opt-in) | 30 of 31 in the top 5, from 27; answers 18 of 35, from 21 |
 | ✅ | Grounded answers with citations resolved from the database | |
 | ✅ | Evaluation harness over a golden question set | see [Evaluation](#evaluation) |
-| ⬜ | CI/CD, Helm chart, Kubernetes deployment | |
+| ✅ | CI: lint, tests on Python 3.11 and 3.12, and an image build on every pull request | |
 
 ## Notes on the corpus
 
