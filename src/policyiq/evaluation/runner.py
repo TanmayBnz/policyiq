@@ -56,10 +56,17 @@ def run_case(case: Case, top_k: int, generate: bool, cold: bool = True) -> CaseR
     started = time.perf_counter()
     chunks = retrieve(case.question, top_k)
     result = CaseResult(
-        id=case.id, category=case.category, expect=case.expect, question=case.question,
+        id=case.id,
+        category=case.category,
+        expect=case.expect,
+        question=case.question,
         retrieved=[
-            {"filename": c.filename, "page": c.page_number, "score": round(c.score, 4),
-             "gold": (c.filename, c.page_number) in case.gold_pages()}
+            {
+                "filename": c.filename,
+                "page": c.page_number,
+                "score": round(c.score, 4),
+                "gold": (c.filename, c.page_number) in case.gold_pages(),
+            }
             for c in chunks
         ],
     )
@@ -116,14 +123,11 @@ def summarise(results: list[CaseResult]) -> dict:
             "pass_rate": round(sum(r.passed for r in generated) / len(generated), 3),
             "passed": sum(bool(r.passed) for r in generated),
             "of": len(generated),
-            "by_category": {
-                k: f"{sum(v)}/{len(v)}" for k, v in sorted(by_category.items())
-            },
+            "by_category": {k: f"{sum(v)}/{len(v)}" for k, v in sorted(by_category.items())},
             # Of all citations on answerable questions, the share pointing at a gold
             # page - the project's headline claim, as a number.
             "citation_precision": (
-                round(sum(r.citations_on_gold for r in answerable) / cited, 3)
-                if cited else None
+                round(sum(r.citations_on_gold for r in answerable) / cited, 3) if cited else None
             ),
             "refused_answerable": [
                 r.id for r in generated if "refused an answerable question" in r.failures
@@ -136,13 +140,19 @@ def summarise(results: list[CaseResult]) -> dict:
 def configuration(top_k: int, generate: bool, cold: bool) -> dict:
     try:
         commit = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
+            ["git", "rev-parse", "--short", "HEAD"],
+            capture_output=True,
+            text=True,
             check=True,
         ).stdout.strip()
-        dirty = bool(subprocess.run(
-            ["git", "status", "--porcelain", "--untracked-files=no"],
-            capture_output=True, text=True, check=True,
-        ).stdout.strip())
+        dirty = bool(
+            subprocess.run(
+                ["git", "status", "--porcelain", "--untracked-files=no"],
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout.strip()
+        )
     except (OSError, subprocess.CalledProcessError):
         commit, dirty = "unknown", False
     documents = list_documents()
@@ -165,17 +175,13 @@ def configuration(top_k: int, generate: bool, cold: bool) -> dict:
         "chunk_overlap_chars": settings.chunk_overlap_chars,
         # A fingerprint rather than the text: enough to tell two runs apart, and the
         # prompt itself lives in the code at that commit.
-        "prompt_sha256": hashlib.sha256(
-            answer_module.PROMPT_TEMPLATE.encode()
-        ).hexdigest()[:12],
+        "prompt_sha256": hashlib.sha256(answer_module.PROMPT_TEMPLATE.encode()).hexdigest()[:12],
         "documents": len(documents),
         "chunks": sum(chunks for _, _, _, chunks in documents),
     }
 
 
-def run(
-    cases: list[Case], top_k: int, generate: bool, cold: bool = True, progress=None
-) -> dict:
+def run(cases: list[Case], top_k: int, generate: bool, cold: bool = True, progress=None) -> dict:
     missing = missing_documents(cases)
     if missing:
         raise RuntimeError(f"gold documents not ingested: {missing}")

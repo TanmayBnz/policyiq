@@ -284,8 +284,9 @@ def test_a_real_model_says_so_when_the_documents_do_not_answer(live):
         "what is the annual mileage limit for a commercial goods vehicle?", top_k=5
     )
 
-    assert re.search(r"do(es)? not|no information|not (specified|covered|mention)",
-                     result.answer, re.IGNORECASE), result.answer
+    assert re.search(
+        r"do(es)? not|no information|not (specified|covered|mention)", result.answer, re.IGNORECASE
+    ), result.answer
 
 
 REFUSAL = "The provided policy documents do not cover this."
@@ -341,6 +342,7 @@ def test_a_real_model_recognises_an_exclusion_as_an_exclusion(live):
     result = answer_question(MATERNITY, top_k=5)
 
     assert result.answer.strip() != REFUSAL, "the documents do address this"
-    assert re.search(r"exclu|not (be )?(covered|payable)|shall not be liable",
-                     result.answer, re.IGNORECASE), result.answer
+    assert re.search(
+        r"exclu|not (be )?(covered|payable)|shall not be liable", result.answer, re.IGNORECASE
+    ), result.answer
     assert result.citations, result.answer

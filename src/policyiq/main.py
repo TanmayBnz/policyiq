@@ -19,6 +19,7 @@ def llm_healthy() -> bool:
     substitute in tests, mirroring db_healthy."""
     return get_provider().healthy()
 
+
 app = FastAPI(title="PolicyIQ", version="0.1.0")
 
 

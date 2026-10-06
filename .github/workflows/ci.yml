@@ -86,6 +86,11 @@ jobs:
       - name: Lint
         run: .venv/bin/ruff check src tests
 
+      # Formatting is checked, not fixed: a diff full of whitespace in an unrelated pull
+      # request is worse than a red check that says exactly which file to run `make fmt` on.
+      - name: Format
+        run: .venv/bin/ruff format --check src tests
+
       # -rs lists every skip with its reason, so a test that has quietly stopped
       # running is visible in the log rather than hidden in a count.
       - name: Test

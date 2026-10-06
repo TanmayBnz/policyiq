@@ -21,25 +21,38 @@ GOLD = [Source(filename="a.pdf", pages=[3, 4])]
 
 
 def answerable(**overrides) -> Case:
-    fields = dict(id="t", question="What is the waiting period?", category="waiting-period",
-                  expect="answer", evidence="36 months", sources=GOLD,
-                  must_match=["36 months"])
+    fields = dict(
+        id="t",
+        question="What is the waiting period?",
+        category="waiting-period",
+        expect="answer",
+        evidence="36 months",
+        sources=GOLD,
+        must_match=["36 months"],
+    )
     return Case(**(fields | overrides))
 
 
 def refusal_case() -> Case:
-    return Case(id="r", question="Is my car covered?", category="out-of-scope",
-                expect="refusal")
+    return Case(id="r", question="Is my car covered?", category="out-of-scope", expect="refusal")
 
 
 def chunk(filename: str, page: int, score: float = 0.8) -> RetrievedChunk:
-    return RetrievedChunk(chunk_id=page, document_id=1, filename=filename,
-                          page_number=page, chunk_index=page, content="text", score=score)
+    return RetrievedChunk(
+        chunk_id=page,
+        document_id=1,
+        filename=filename,
+        page_number=page,
+        chunk_index=page,
+        content="text",
+        score=score,
+    )
 
 
 def cite(filename: str, page: int) -> Citation:
-    return Citation(document_id=1, filename=filename, page_number=page, chunk_index=page,
-                    excerpt="text")
+    return Citation(
+        document_id=1, filename=filename, page_number=page, chunk_index=page, excerpt="text"
+    )
 
 
 # --- retrieval --------------------------------------------------------------------
@@ -107,8 +120,9 @@ def test_an_answer_missing_the_required_fact_fails():
 
 def test_an_answer_saying_something_forbidden_fails():
     case = answerable(must_not_match=[r"\bis covered"])
-    response = QueryResponse(answer="After 36 months it becomes payable [1].",
-                             citations=[cite("a.pdf", 3)])
+    response = QueryResponse(
+        answer="After 36 months it becomes payable [1].", citations=[cite("a.pdf", 3)]
+    )
 
     assert score_answer(response, case).passed
     response.answer = "Maternity is covered after 36 months [1]."
@@ -159,8 +173,13 @@ def test_an_answerable_case_must_say_where_its_answer_is():
 
 def test_a_refusal_case_cannot_point_at_pages():
     with pytest.raises(ValueError, match="cannot have sources"):
-        Case(id="x", question="Is my car covered?", category="out-of-scope",
-             expect="refusal", sources=GOLD)
+        Case(
+            id="x",
+            question="Is my car covered?",
+            category="out-of-scope",
+            expect="refusal",
+            sources=GOLD,
+        )
 
 
 def test_a_broken_pattern_is_rejected_when_loaded():
@@ -222,8 +241,9 @@ def test_building_fails_on_evidence_that_matches_nothing():
 
 
 def test_check_reports_recorded_pages_that_drifted():
-    case = answerable(evidence="expiry of 36 months",
-                      sources=[Source(filename="arogya.pdf", pages=[1])])
+    case = answerable(
+        evidence="expiry of 36 months", sources=[Source(filename="arogya.pdf", pages=[1])]
+    )
 
     [problem] = gold.check([case], CORPUS)
     assert "('arogya.pdf', 8)" in problem and "('star-health.pdf', 27)" in problem
@@ -241,14 +261,16 @@ def fixed_system(monkeypatch):
         "Is my car covered?": [chunk("b.pdf", 2)],
     }
     answers = {
-        "What is the waiting period?": QueryResponse(answer="36 months [2].",
-                                                     citations=[cite("a.pdf", 3)]),
+        "What is the waiting period?": QueryResponse(
+            answer="36 months [2].", citations=[cite("a.pdf", 3)]
+        ),
         "Is my car covered?": QueryResponse(answer=REFUSAL, citations=[]),
     }
     monkeypatch.setattr(runner, "retrieve", lambda q, k: retrieved[q])
     monkeypatch.setattr(runner, "answer_question", lambda q, k: answers[q])
-    monkeypatch.setattr(runner, "list_documents",
-                        lambda: [(1, "a.pdf", 10, 40), (2, "b.pdf", 5, 20)])
+    monkeypatch.setattr(
+        runner, "list_documents", lambda: [(1, "a.pdf", 10, 40), (2, "b.pdf", 5, 20)]
+    )
     monkeypatch.setattr(runner, "get_provider", lambda: provider)
     return answers
 
@@ -269,7 +291,10 @@ def test_a_run_summarises_retrieval_and_answers(fixed_system):
     summary = report["summary"]
 
     assert summary["retrieval"] == {
-        "answerable_cases": 1, "hit_at_k": 1.0, "mrr": 0.5, "precision_at_k": 0.5,
+        "answerable_cases": 1,
+        "hit_at_k": 1.0,
+        "mrr": 0.5,
+        "precision_at_k": 0.5,
         "misses": [],
     }
     assert summary["answers"]["pass_rate"] == 1.0
@@ -297,8 +322,9 @@ def test_a_cold_run_reloads_the_model_before_every_answer(fixed_system, monkeypa
     order = []
     monkeypatch.setattr(provider, "unload", lambda: order.append("unload"))
     real = runner.answer_question
-    monkeypatch.setattr(runner, "answer_question",
-                        lambda q, k: order.append("answer") or real(q, k))
+    monkeypatch.setattr(
+        runner, "answer_question", lambda q, k: order.append("answer") or real(q, k)
+    )
 
     runner.run([answerable(), refusal_case()], top_k=2, generate=True)
 

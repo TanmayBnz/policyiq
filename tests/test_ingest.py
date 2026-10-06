@@ -44,6 +44,7 @@ def clean_corpus():
     returning nothing. Clearing beforehand also stops residue from a previous run
     making the duplicate-detection assertions pass for the wrong reason.
     """
+
     def purge():
         with get_pool().connection() as conn:
             conn.execute("DELETE FROM documents WHERE filename = ANY(%s)", (OWNED_NAMES,))

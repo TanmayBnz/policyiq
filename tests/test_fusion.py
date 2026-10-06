@@ -12,8 +12,13 @@ from policyiq.retrieval.vector import RetrievedChunk
 
 def chunk(chunk_id: int, score: float = 0.0) -> RetrievedChunk:
     return RetrievedChunk(
-        chunk_id=chunk_id, document_id=1, filename="a.pdf", page_number=1,
-        chunk_index=chunk_id, content=f"chunk {chunk_id}", score=score,
+        chunk_id=chunk_id,
+        document_id=1,
+        filename="a.pdf",
+        page_number=1,
+        chunk_index=chunk_id,
+        content=f"chunk {chunk_id}",
+        score=score,
     )
 
 
@@ -92,14 +97,24 @@ def test_fewer_results_than_top_k_is_not_an_error():
 
 def test_the_chunk_carries_everything_else_unchanged():
     original = RetrievedChunk(
-        chunk_id=4, document_id=2, filename="b.pdf", page_number=7, chunk_index=3,
-        content="text", score=0.77,
+        chunk_id=4,
+        document_id=2,
+        filename="b.pdf",
+        page_number=7,
+        chunk_index=3,
+        content="text",
+        score=0.77,
     )
 
     fused = reciprocal_rank_fusion([[original]], top_k=1)[0]
 
-    assert (fused.document_id, fused.filename, fused.page_number, fused.chunk_index,
-            fused.content) == (2, "b.pdf", 7, 3, "text")
+    assert (
+        fused.document_id,
+        fused.filename,
+        fused.page_number,
+        fused.chunk_index,
+        fused.content,
+    ) == (2, "b.pdf", 7, 3, "text")
     assert fused.score == pytest.approx(1 / 61)
 
 

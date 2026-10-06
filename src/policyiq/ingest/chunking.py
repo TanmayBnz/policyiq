@@ -222,9 +222,7 @@ def _overlap_tail(text: str, overlap_chars: int) -> str:
     return text[-overlap_chars:]
 
 
-def chunk_pages(
-    pages: list[tuple[int, str]], target_chars: int, overlap_chars: int
-) -> list[Chunk]:
+def chunk_pages(pages: list[tuple[int, str]], target_chars: int, overlap_chars: int) -> list[Chunk]:
     """Break pages into chunks that respect clause boundaries.
 
     Insurance policies are structured as numbered clauses and lettered sub-clauses.
