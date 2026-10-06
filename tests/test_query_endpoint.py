@@ -20,7 +20,7 @@ from policyiq.db import get_pool
 from policyiq.ingest.pipeline import ingest_pdf
 from policyiq.llm import get_provider
 from policyiq.main import app
-from policyiq.retrieval.vector import vector_search
+from policyiq.retrieval.search import retrieve
 
 client = TestClient(app)
 
@@ -75,7 +75,7 @@ def stub(monkeypatch):
 
 
 def test_every_chunk_is_labelled_with_a_numbered_marker():
-    chunks = vector_search(QUESTION, top_k=3)
+    chunks = retrieve(QUESTION, top_k=3)
     prompt = build_prompt(QUESTION, chunks)
 
     assert len(chunks) == 3
@@ -84,7 +84,7 @@ def test_every_chunk_is_labelled_with_a_numbered_marker():
 
 
 def test_the_prompt_carries_the_question_and_the_retrieved_text():
-    chunks = vector_search(QUESTION, top_k=2)
+    chunks = retrieve(QUESTION, top_k=2)
     prompt = build_prompt(QUESTION, chunks)
 
     assert QUESTION in prompt
@@ -96,7 +96,7 @@ def test_the_prompt_permits_refusing_to_answer():
     """A model will invent an answer rather than admit the text does not contain one,
     unless it is told that saying so is allowed. "Not specified in these documents" is
     a correct and valuable answer."""
-    prompt = build_prompt(QUESTION, vector_search(QUESTION, top_k=2)).lower()
+    prompt = build_prompt(QUESTION, retrieve(QUESTION, top_k=2)).lower()
 
     assert "only" in prompt, "the model must be told to use only the supplied excerpts"
     assert any(word in prompt for word in ("do not", "does not", "cannot", "not contain"))
@@ -109,7 +109,7 @@ def test_only_the_markers_the_model_cited_become_citations(stub):
     stub("The policy excludes cosmetic surgery [2].")
 
     result = answer_question(QUESTION, top_k=3)
-    retrieved = vector_search(QUESTION, top_k=3)
+    retrieved = retrieve(QUESTION, top_k=3)
 
     assert len(result.citations) == 1
     assert result.citations[0].chunk_index == retrieved[1].chunk_index
@@ -132,7 +132,7 @@ def test_a_mix_of_real_and_invented_markers_keeps_only_the_real_ones(stub):
     stub("Cosmetic surgery is excluded [1], and so is war [7].")
 
     result = answer_question(QUESTION, top_k=3)
-    retrieved = vector_search(QUESTION, top_k=3)
+    retrieved = retrieve(QUESTION, top_k=3)
 
     assert len(result.citations) == 1
     assert result.citations[0].chunk_index == retrieved[0].chunk_index
@@ -186,7 +186,7 @@ def test_an_excerpt_never_begins_part_way_through_a_word(stub):
     stub("Excluded [1] and [2] and [3].")
 
     result = answer_question(QUESTION, top_k=3)
-    by_index = {c.chunk_index: c.content for c in vector_search(QUESTION, top_k=3)}
+    by_index = {c.chunk_index: c.content for c in retrieve(QUESTION, top_k=3)}
 
     assert result.citations
     for citation in result.citations:
@@ -222,7 +222,7 @@ def test_every_citation_corresponds_to_a_chunk_that_was_retrieved(stub):
     stub("Excluded [1] and [2] and [3].")
 
     result = answer_question(QUESTION, top_k=3)
-    retrieved = {(c.document_id, c.chunk_index) for c in vector_search(QUESTION, top_k=3)}
+    retrieved = {(c.document_id, c.chunk_index) for c in retrieve(QUESTION, top_k=3)}
 
     assert {(c.document_id, c.chunk_index) for c in result.citations} <= retrieved
 

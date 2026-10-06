@@ -245,7 +245,7 @@ def fixed_system(monkeypatch):
                                                      citations=[cite("a.pdf", 3)]),
         "Is my car covered?": QueryResponse(answer=REFUSAL, citations=[]),
     }
-    monkeypatch.setattr(runner, "vector_search", lambda q, k: retrieved[q])
+    monkeypatch.setattr(runner, "retrieve", lambda q, k: retrieved[q])
     monkeypatch.setattr(runner, "answer_question", lambda q, k: answers[q])
     monkeypatch.setattr(runner, "list_documents",
                         lambda: [(1, "a.pdf", 10, 40), (2, "b.pdf", 5, 20)])
@@ -277,6 +277,8 @@ def test_a_run_summarises_retrieval_and_answers(fixed_system):
     assert summary["answers"]["by_category"] == {"out-of-scope": "1/1", "waiting-period": "1/1"}
     assert report["configuration"]["documents"] == 2
     assert report["configuration"]["chunks"] == 60
+    # Retrieval numbers are meaningless without knowing which retriever made them.
+    assert report["configuration"]["retrieval_mode"] in {"vector", "hybrid"}
 
 
 def test_a_refused_answerable_question_is_listed_by_name(fixed_system):

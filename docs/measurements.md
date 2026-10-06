@@ -61,6 +61,25 @@ Before the review fixes: 16% of chunks exceeded the target, largest 2844 (2.4x).
 | Answers differing between two identical cold runs | 0 of 35 |
 | Pass/fail flips between two identical runs with the model left loaded | 4 of 33 |
 
+## Hybrid search — 2026-09-17
+
+Same corpus and golden set, top 5, model reloaded per question. Latency over 105
+queries (the 35 questions, three times), embedding included.
+
+| Metric | Vector | Keyword alone | Hybrid (RRF) |
+|---|---|---|---|
+| Retrieval hit@5 | 27 / 31 | 28 / 31 | 30 / 31 |
+| MRR | 0.739 | 0.689 | 0.769 |
+| Precision@5 | 0.523 | | 0.587 |
+| Answers passing | 21 / 35 | | 18 / 35 |
+| Answerable questions refused | 9 | | 10 |
+| Citation precision | 0.815 | | 0.800 |
+| Search latency, median / p95 | 16.7 / 18.7 ms | 9.7 / 11.5 ms | 29.8 / 33.3 ms |
+| Evaluation run, 35 questions | 628 s | | 623 s |
+
+The vector column was rerun on the hybrid branch and matched the 2026-09-16 baseline
+failure for failure. Vector remains the default: better retrieval, worse answers.
+
 ## Known data-quality gaps
 
 | Metric | Value |

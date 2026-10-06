@@ -7,9 +7,8 @@ Runs entirely on local infrastructure. No third-party API is called and no docum
 text leaves the machine — which is not a limitation worked around but the deployment
 model a regulated insurer would require.
 
-> **Status: in progress.** Ingestion, vector search, grounded answers with citations,
-> and an evaluation harness are built and tested. Hybrid search and deployment are
-> next. See [Roadmap](#roadmap) for what exists today versus what is planned, and
+> **Status: in progress.** Ingestion, vector and keyword search, grounded answers with citations,
+> and an evaluation harness are built and tested. Deployment is next. See [Roadmap](#roadmap) for what exists today versus what is planned, and
 > [Evaluation](#evaluation) for how well it currently works.
 
 ---
@@ -43,12 +42,13 @@ is what makes some questions discriminating.
                                    ▼
                        ┌──────────────────────────┐
                        │  PostgreSQL + pgvector   │
-                       │  vectors, cosine search  │
+                       │  vectors + full-text     │
                        └───────────┬──────────────┘
                                    ▲
    question ───────────▶┌──────────┴──────────────┐
                         │  POST /v1/query          │
-                        │  vector search, then     │
+                        │  vector search (or fused │
+                        │  with keyword), then     │
                         │  generated from excerpts │
                         │  → answer + citations    │
                         └──────────────────────────┘
@@ -59,7 +59,8 @@ is what makes some questions discriminating.
 | Embeddings | `bge-small-en-v1.5` via ONNX Runtime | About 12 chunks/sec on CPU for real ~1,000-character chunks, and 3.5ms per query — no GPU needed. PyTorch would add ~2.5GB to the image and buy nothing at inference time. |
 | Generation | Ollama on the host, 3B instruct model | Zero cost, zero egress. Sized to fit 4GB of VRAM rather than spilling to CPU mid-demo. |
 | Model layer | `LLMProvider` interface | Clients arrive with incompatible constraints — some locked into a managed cloud model, some unable to use a hosted model at all. Swapping providers must not touch retrieval. |
-| Storage | PostgreSQL + pgvector | One datastore for vectors now and keyword search next, rather than running a separate vector database. |
+| Storage | PostgreSQL + pgvector | One datastore for both vector and keyword search, rather than a separate vector database and search engine. |
+| Retrieval | Vector search by default; vector and keyword search merged by reciprocal rank fusion behind `RETRIEVAL_MODE=hybrid` | They miss different questions: embeddings barely register a product name or a date, keywords miss paraphrase. Fused, 30 of 31 answerable questions have an answer page in the top 5, against 27 — but end-to-end answers got worse (18 of 35 against 21), so hybrid is not the default yet. |
 | Data access | psycopg with raw SQL | The vector query is the interesting part of this system; it should be readable directly rather than through a query builder. |
 
 ## Design decisions worth reading
@@ -72,6 +73,9 @@ Recorded as ADRs in [`docs/adr/`](docs/adr/):
 - **[Evaluation without a model judge](docs/adr/0002-evaluation-harness.md)** — a
   golden set keyed on pages rather than chunks, retrieval and answers scored
   separately, and why every question runs against a freshly loaded model.
+- **[Hybrid search, fused by rank](docs/adr/0003-hybrid-search.md)** — why keyword
+  search matches any word rather than all, why rankings are fused by position rather
+  than score, and why better retrieval did not yet mean better answers.
 
 Measured figures are in [`docs/measurements.md`](docs/measurements.md).
 
@@ -105,6 +109,7 @@ the correct response to those is a refusal.
 
 ```bash
 python -m policyiq.evaluation run --retrieval-only   # seconds
+python -m policyiq.evaluation run --retrieval-only --retrieval hybrid   # compare
 python -m policyiq.evaluation run                    # ~11 minutes, repeatable
 ```
 
@@ -123,7 +128,25 @@ The largest failure is not wrong answers but refusals: 9 answerable questions go
 "the provided policy documents do not cover this" — 6 of them with an answer page
 among the five passages the model was given, and two of those with the answer on all
 five. Three of the four retrieval misses are questions that name a product or
-a policy date, which vector search does not use — the case for keyword search next.
+a policy date, which vector search does not use.
+
+Hybrid search, 2026-09-17, same settings and the vector run repeated on the same code
+(21 of 35 again, with the same failures):
+
+| | Vector | Hybrid |
+|---|---|---|
+| Retrieval: an answer page in the top 5 | 27 of 31 | **30 of 31** |
+| Retrieval: mean reciprocal rank | 0.739 | **0.769** |
+| Answers passing | **21 of 35** | 18 of 35 |
+| Answerable questions refused | **9** | 10 |
+| Citation precision | **81.5%** | 80.0% |
+
+Better retrieval, worse answers. Hybrid fixed three answers (co-payment,
+specified-disease waiting, ICU limit) and broke six, four of them by refusing with an
+answer page already ranked first or second. The fused passages are different, not
+worse, and the 3B model's refusals are fragile enough that different passages flip
+them. Vector search stays the default until the refusal problem is fixed; the
+comparison is then rerun. Details in [ADR 0003](docs/adr/0003-hybrid-search.md).
 
 Two identical runs produce identical answers to all 35 questions. That took reloading
 the model before every question: left loaded, two runs of the same code at temperature
@@ -141,9 +164,9 @@ measuring. Details in [ADR 0002](docs/adr/0002-evaluation-harness.md).
 | ✅ | Liveness / readiness endpoints | |
 | ✅ | Ingestion pipeline and endpoint | |
 | ✅ | Vector search | |
+| ✅ | Keyword search and reciprocal rank fusion (opt-in) | 30 of 31 in the top 5, from 27; answers 18 of 35, from 21 |
 | ✅ | Grounded answers with citations resolved from the database | |
 | ✅ | Evaluation harness over a golden question set | see [Evaluation](#evaluation) |
-| ⬜ | Hybrid search with reciprocal rank fusion | |
 | ⬜ | CI/CD, Helm chart, Kubernetes deployment | |
 
 ## Notes on the corpus

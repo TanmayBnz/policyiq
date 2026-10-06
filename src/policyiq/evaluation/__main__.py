@@ -50,10 +50,15 @@ def cmd_run(args) -> None:
         cases = [c for c in cases if c.id in set(args.only)]
     if args.prompt:
         _use_prompt(args.prompt)
+    if args.retrieval:
+        # For this run only, so the two modes can be compared on the same golden set
+        # without editing .env. configuration() reads the setting, so the report
+        # records what actually ran.
+        settings.retrieval_mode = args.retrieval
 
     mode = "retrieval only" if args.retrieval_only else (
         "answers, warm model (not repeatable)" if args.warm else "answers, cold model per question")
-    print(f"{len(cases)} cases, top_k={args.top_k}, {mode}")
+    print(f"{len(cases)} cases, top_k={args.top_k}, {settings.retrieval_mode} retrieval, {mode}")
     report = run(cases, args.top_k, generate=not args.retrieval_only, cold=not args.warm,
                  progress=_print_row)
     report["configuration"]["label"] = args.label
@@ -103,6 +108,8 @@ def main(argv: list[str] | None = None) -> None:
     run_parser.add_argument("--warm", action="store_true",
                             help="keep the model loaded: ~3.5x faster, answers not repeatable")
     run_parser.add_argument("--prompt", type=Path, help="alternative prompt template")
+    run_parser.add_argument("--retrieval", choices=["vector", "hybrid"],
+                            help="retrieval mode for this run (default: RETRIEVAL_MODE)")
     run_parser.add_argument("--label", default="", help="suffix for the report filename")
     run_parser.add_argument("--only", nargs="+", metavar="ID", help="run just these cases")
     run_parser.add_argument("--out", type=Path, default=DEFAULT_RESULTS)
