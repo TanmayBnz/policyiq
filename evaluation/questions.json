@@ -2245,5 +2245,2306 @@
     "category": "out-of-scope",
     "expect": "refusal",
     "note": "Checked: 'house' appears only as 'house keeping charges' and 'in house' claims teams; 'building' only in addresses."
+  },
+  {
+    "id": "ni-pre-post-days",
+    "question": "Under New India Mediclaim, for how many days before and after hospitalisation are expenses covered?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "Pre-Hospitalization Medical expenses for up to 30 days",
+    "documents": [
+      "new-india"
+    ],
+    "sources": [
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          9
+        ]
+      }
+    ],
+    "must_match": [
+      "30 days",
+      "60 days"
+    ]
+  },
+  {
+    "id": "ni-ambulance-limit",
+    "question": "What is the most New India Mediclaim pays for an ambulance?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "Ambulance services not exceeding 1% of the Sum Insured",
+    "documents": [
+      "new-india"
+    ],
+    "sources": [
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          10
+        ]
+      }
+    ],
+    "must_match": [
+      "1 ?%"
+    ]
+  },
+  {
+    "id": "ni-voluntary-copay",
+    "question": "What premium discount do I get on New India Mediclaim if I choose a voluntary co-payment?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "voluntary co-pay of 20%, a discount of 15%",
+    "documents": [
+      "new-india"
+    ],
+    "sources": [
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          12
+        ]
+      }
+    ],
+    "must_match": [
+      "15 ?%"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "ni-cumulative-bonus",
+    "question": "By how much does the sum insured grow each claim-free year in New India Mediclaim?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "increased by 25% at each renewal",
+    "documents": [
+      "new-india"
+    ],
+    "sources": [
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          12
+        ]
+      }
+    ],
+    "must_match": [
+      "25 ?%"
+    ]
+  },
+  {
+    "id": "ni-health-checkup",
+    "question": "How often can I claim a health check-up under New India Mediclaim?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "block of every three Claim Free Years",
+    "documents": [
+      "new-india"
+    ],
+    "sources": [
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          10
+        ]
+      }
+    ],
+    "must_match": [
+      "three|3",
+      "claim.free"
+    ]
+  },
+  {
+    "id": "ni-claim-settlement-days",
+    "question": "How quickly does New India Mediclaim settle a non-cashless claim?",
+    "category": "claims",
+    "expect": "answer",
+    "evidence": "settled within fifteen days from submission of claim",
+    "documents": [
+      "new-india"
+    ],
+    "sources": [
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          22
+        ]
+      }
+    ],
+    "must_match": [
+      "fifteen|15"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "ni-claim-delay-interest",
+    "question": "What happens under New India Mediclaim if the insurer is late paying my claim?",
+    "category": "claims",
+    "expect": "answer",
+    "evidence": "liable to pay interest to the policyholder",
+    "documents": [
+      "new-india"
+    ],
+    "sources": [
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          22
+        ]
+      }
+    ],
+    "must_match": [
+      "interest"
+    ]
+  },
+  {
+    "id": "tata-ayush-pre-post",
+    "question": "Under Tata AIG MediCare Platinum, how many days before and after admission are covered for AYUSH treatment?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "Pre-Hospitalization medical expenses for a period of upto 60 days before the date of admission to the AYUSH",
+    "documents": [
+      "tata"
+    ],
+    "sources": [
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          11
+        ]
+      }
+    ],
+    "must_match": [
+      "60",
+      "90"
+    ]
+  },
+  {
+    "id": "tata-planned-notice",
+    "question": "How far in advance must I tell Tata AIG about a planned hospital admission?",
+    "category": "claims",
+    "expect": "answer",
+    "evidence": "planned Hospitalisation: At least 48 hours prior",
+    "documents": [
+      "tata"
+    ],
+    "sources": [
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          33
+        ]
+      }
+    ],
+    "must_match": [
+      "48 hours"
+    ]
+  },
+  {
+    "id": "tata-domiciliary",
+    "question": "Does Tata AIG MediCare Platinum pay for treatment at home, and when?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "Domiciliary Hospitalization of the insured person if the treatment exceeds beyond three days",
+    "documents": [
+      "tata"
+    ],
+    "sources": [
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          11
+        ]
+      }
+    ],
+    "must_match": [
+      "three days|3 days"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "tata-free-look",
+    "question": "How long is the free look period under Tata AIG MediCare Platinum?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "free look period of thirty days beginning from the date of receipt",
+    "documents": [
+      "tata"
+    ],
+    "sources": [
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          30
+        ]
+      }
+    ],
+    "must_match": [
+      "thirty|30"
+    ]
+  },
+  {
+    "id": "star-copay-senior",
+    "question": "Is there a co-payment under Star Health Assure for older customers?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "co-payment of 10% of each and every claim amount",
+    "documents": [
+      "star-health"
+    ],
+    "sources": [
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          20,
+          47
+        ]
+      }
+    ],
+    "must_match": [
+      "10 ?%",
+      "61"
+    ]
+  },
+  {
+    "id": "star-pre-post-days",
+    "question": "How many days of pre- and post-hospitalisation expenses does Star Health Assure cover?",
+    "category": "product-specific",
+    "expect": "answer",
+    "evidence": "Pre-Hospitalization Expenses: Medical expenses incurred up to 60 days",
+    "documents": [
+      "star-health"
+    ],
+    "sources": [
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          10
+        ]
+      }
+    ],
+    "must_match": [
+      "60",
+      "180"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "star-room-rent",
+    "question": "What is the room rent limit in Star Health Assure for the lower sum insured options?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "Room Rent Criteria Up to 1% of Sum Insured per day",
+    "documents": [
+      "star-health"
+    ],
+    "sources": [
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          9
+        ]
+      }
+    ],
+    "must_match": [
+      "1 ?%"
+    ]
+  },
+  {
+    "id": "star-air-ambulance",
+    "question": "How much does Star Health Assure pay for an air ambulance?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "air ambulance service up to 10% of Sum Insured per Policy Year",
+    "documents": [
+      "star-health"
+    ],
+    "sources": [
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          11
+        ]
+      }
+    ],
+    "must_match": [
+      "10 ?%"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "star-emergency-notice",
+    "question": "How soon must I inform Star Health after an emergency admission?",
+    "category": "claims",
+    "expect": "answer",
+    "evidence": "Emergency Hospitalization \\(Cashless / Reimbursement\\): Within 24 hours",
+    "documents": [
+      "star-health"
+    ],
+    "sources": [
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          32
+        ]
+      }
+    ],
+    "must_match": [
+      "24 hours"
+    ]
+  },
+  {
+    "id": "star-monthly-grace",
+    "question": "What is the grace period for a monthly instalment under Star Health Assure?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "For monthly instalment option: Grace Period of 15 days",
+    "documents": [
+      "star-health"
+    ],
+    "sources": [
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          37
+        ]
+      }
+    ],
+    "must_match": [
+      "15"
+    ]
+  },
+  {
+    "id": "hdfc-room-rent",
+    "question": "What is the room rent limit in HDFC ERGO Optima Secure?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "Room rent limit shall be .At Actuals. unless otherwise specified",
+    "documents": [
+      "hdfc"
+    ],
+    "sources": [
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          11
+        ]
+      }
+    ],
+    "must_match": [
+      "actual"
+    ]
+  },
+  {
+    "id": "hdfc-monthly-grace",
+    "question": "What grace period applies if I pay HDFC ERGO Optima Secure premium monthly?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "Option 4 Monthly 15 Days",
+    "documents": [
+      "hdfc"
+    ],
+    "sources": [
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          39
+        ]
+      }
+    ],
+    "must_match": [
+      "15"
+    ]
+  },
+  {
+    "id": "hdfc-health-checkup",
+    "question": "Does HDFC ERGO Optima Secure offer a preventive health check-up?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "Renewal Benefit - Preventive Health Check-up",
+    "documents": [
+      "hdfc"
+    ],
+    "sources": [
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          29
+        ]
+      }
+    ],
+    "must_match": [
+      "check-?up"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "niva-air-ambulance",
+    "question": "What is the maximum air ambulance payment under Niva Bupa ReAssure?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "Air Ambulance: Only in case of Emergency\\. Maximum INR 2,50,000",
+    "documents": [
+      "niva-bupa-reassure-2"
+    ],
+    "sources": [
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          5
+        ]
+      }
+    ],
+    "must_match": [
+      "2,50,000|2\\.5 lakh"
+    ]
+  },
+  {
+    "id": "niva-health-checkup",
+    "question": "How often can I take the health check-up under Niva Bupa ReAssure?",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "Annual Health Checkup Available once every Policy Year, from day 1",
+    "documents": [
+      "niva-bupa-reassure-2"
+    ],
+    "sources": [
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          7
+        ]
+      }
+    ],
+    "must_match": [
+      "once|every|year"
+    ]
+  },
+  {
+    "id": "elevate-room-type",
+    "question": "What room type does Elevate cover for in-patient care?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "Room Rent charges up to Single Private AC room",
+    "documents": [
+      "elevate"
+    ],
+    "sources": [
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          6,
+          32
+        ]
+      }
+    ],
+    "must_match": [
+      "single private"
+    ]
+  },
+  {
+    "id": "elevate-network-copay",
+    "question": "Is there a co-payment under Elevate if I am treated outside the preferred hospital network?",
+    "category": "limit",
+    "expect": "answer",
+    "evidence": "co-payment of 20% will be applicable on each and every claim in case the treatment is taken in a hospital which is not included",
+    "documents": [
+      "elevate"
+    ],
+    "sources": [
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          30
+        ]
+      }
+    ],
+    "must_match": [
+      "20 ?%"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "elevate-ped-reduction",
+    "question": "Can I shorten the waiting period for pre-existing diseases under Elevate?",
+    "category": "waiting-period",
+    "expect": "answer",
+    "evidence": "reduced from 36 months to 24 months or 12 months",
+    "documents": [
+      "elevate"
+    ],
+    "sources": [
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          29
+        ]
+      }
+    ],
+    "must_match": [
+      "24",
+      "12"
+    ]
+  },
+  {
+    "id": "arogya-child-age",
+    "question": "Up to what age are dependent children covered under Arogya Sanjeevani?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "Dependent children .{0,60}between the age 3 months to 25 years",
+    "documents": [
+      "w.e.f 12th Dec 2022"
+    ],
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          5,
+          7
+        ]
+      }
+    ],
+    "must_match": [
+      "25"
+    ]
+  },
+  {
+    "id": "arogya-proposer-age",
+    "question": "What are the minimum and maximum ages to buy Arogya Sanjeevani as the policyholder?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "between the age of 18 years and 65 ?years",
+    "documents": [
+      "w.e.f 12th Dec 2022"
+    ],
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          20
+        ]
+      }
+    ],
+    "must_match": [
+      "18",
+      "65"
+    ]
+  },
+  {
+    "id": "cancel-notice",
+    "question": "How much written notice must I give to cancel my policy?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "may cancel (?:his/her |this |his )?polic.{0,80}7 days",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          13
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          14
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          20
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          36
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          39
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          20
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          19
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          36
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          27
+        ]
+      }
+    ],
+    "must_match": [
+      "7 days|seven days"
+    ]
+  },
+  {
+    "id": "ombudsman",
+    "question": "Who can I go to if I am unhappy with how the insurer handled my complaint?",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "Ombudsman Rules,? 2017",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          18
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          22
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          42
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          24
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          22
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          18
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          38
+        ]
+      }
+    ],
+    "must_match": [
+      "ombudsman"
+    ]
+  },
+  {
+    "id": "def-ped",
+    "question": "How does the policy define a pre-existing disease?",
+    "category": "definition",
+    "expect": "answer",
+    "evidence": "Pre-?\\s?existing disease[^.]{0,30}means any condition, ailment, injury or disease",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          7
+        ]
+      }
+    ],
+    "must_match": [
+      "diagnos|condition|ailment"
+    ]
+  },
+  {
+    "id": "def-day-care",
+    "question": "What counts as a day care treatment under the policy?",
+    "category": "definition",
+    "expect": "answer",
+    "evidence": "Day Care Treatment means",
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          4
+        ]
+      }
+    ],
+    "must_match": [
+      "24 hours"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "def-cashless",
+    "question": "What does cashless facility mean?",
+    "category": "definition",
+    "expect": "answer",
+    "evidence": "Cashless facility means a facility extended by the insurer",
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          3
+        ]
+      }
+    ],
+    "must_match": [
+      "insurer|payment|pay"
+    ]
+  },
+  {
+    "id": "def-accident",
+    "question": "How does the policy define an accident?",
+    "category": "definition",
+    "expect": "answer",
+    "evidence": "Accident means",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          1
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          1
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          1
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          1
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          1
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          2
+        ]
+      }
+    ],
+    "must_match": [
+      "sudden|unforeseen|external|unexpected"
+    ]
+  },
+  {
+    "id": "def-qualified-nurse",
+    "question": "What qualifies someone as a qualified nurse under the policy?",
+    "category": "definition",
+    "expect": "answer",
+    "evidence": "Qualified Nurse means",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          5
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          8
+        ]
+      }
+    ],
+    "must_match": [
+      "regist|nursing"
+    ]
+  },
+  {
+    "id": "def-reasonable-charges",
+    "question": "What are reasonable and customary charges?",
+    "category": "definition",
+    "expect": "answer",
+    "evidence": "Reasonable and Customary Charges?”? means",
+    "sources": [
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          8
+        ]
+      }
+    ],
+    "must_match": [
+      "prevailing|customary|generally|similar"
+    ]
+  },
+  {
+    "id": "war-excluded",
+    "question": "Are injuries caused by war covered?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "\\bwar\\b.{0,80}(invasion|hostilit|war ?like|rebellion)",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          13
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          13
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          18
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          35
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          20
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          24
+        ]
+      }
+    ],
+    "must_match": [
+      "not|exclu"
+    ],
+    "split": "held-out"
+  },
+  {
+    "id": "hearing-aid-excluded",
+    "question": "Does the policy pay for hearing aids or spectacles?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "hearing aids|spectacles",
+    "sources": [
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          35
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          19
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          22
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          25
+        ]
+      }
+    ],
+    "must_match": [
+      "not|exclu"
+    ]
+  },
+  {
+    "id": "self-injury-excluded",
+    "question": "Is treatment for self-inflicted injury or attempted suicide covered?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "self\\s*-?\\s*(injur|inflict)|suicide",
+    "sources": [
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          35
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          19
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          25
+        ]
+      }
+    ],
+    "must_match": [
+      "not|exclu"
+    ]
+  },
+  {
+    "id": "plain-ped-wait",
+    "question": "how long do i have to wait before my old illnesses get covered",
+    "category": "waiting-period",
+    "expect": "answer",
+    "evidence": "excluded until the expiry of (36|48) months",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          13
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          14
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          27
+        ]
+      }
+    ],
+    "must_match": [
+      "(36|48) months|(three|four|3|4) years"
+    ],
+    "note": "Rewording of ped-waiting-period: same evidence, different phrasing."
+  },
+  {
+    "id": "plain-ayurveda",
+    "question": "can i get ayurvedic treatment paid for",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "AYUSH Treatment:? (The Company|We) shall indemnify",
+    "sources": [
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          12
+        ]
+      }
+    ],
+    "must_match": [
+      "cover|indemnif|payable|sum insured"
+    ],
+    "must_not_match": [
+      "(is|are) not covered"
+    ],
+    "note": "Rewording of ayush-treatment: same evidence, different phrasing."
+  },
+  {
+    "id": "plain-lasik",
+    "question": "will they pay for lasik eye surgery",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "refractive error[^.]{0,40}Code\\s*[-–:]?\\s*Excl\\s*15",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          18
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          23
+        ]
+      }
+    ],
+    "must_match": [
+      "7\\.5|exclu|not (be )?(covered|payable)|shall not"
+    ],
+    "note": "Rewording of refractive-error-excluded: same evidence, different phrasing."
+  },
+  {
+    "id": "plain-claim-free",
+    "question": "do i get anything extra for not making a claim",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "cumulative bonus.{0,160}?5 ?%.{0,160}?maximum of 50 ?%",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          7,
+          19
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          9,
+          20
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          9,
+          24
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          4
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          8,
+          20
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          12,
+          29
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          7,
+          19
+        ]
+      }
+    ],
+    "must_match": [
+      "5 ?%",
+      "50 ?%"
+    ],
+    "note": "Rewording of cumulative-bonus: same evidence, different phrasing."
+  },
+  {
+    "id": "plain-late-premium",
+    "question": "how many days late can i pay my renewal and still keep the policy",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "grace period of (15|30|thirty) days",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          19
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          15,
+          19
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          23
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          20,
+          24
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          35,
+          40
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          36,
+          37
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          28,
+          29
+        ]
+      }
+    ],
+    "must_match": [
+      "(15|30|thirty|fifteen) days"
+    ],
+    "note": "Rewording of grace-period: same evidence, different phrasing."
+  },
+  {
+    "id": "plain-return-policy",
+    "question": "i just bought the policy, how long can i return it",
+    "category": "terms",
+    "expect": "answer",
+    "evidence": "free ?look period.{0,40}?(15|30|fifteen|thirty) days",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          22
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          36
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          21
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          19
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          38
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          30
+        ]
+      }
+    ],
+    "must_match": [
+      "(15|30|fifteen|thirty) days"
+    ],
+    "note": "Rewording of free-look-period: same evidence, different phrasing."
+  },
+  {
+    "id": "plain-nose-job",
+    "question": "is a nose job covered",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "Cosmetic or plastic Surgery[^.]{0,30}Code\\s*[-–:]?\\s*Excl\\s*0?8",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          22
+        ]
+      }
+    ],
+    "must_match": [
+      "exclu|not (be )?(covered|payable)|shall not"
+    ],
+    "note": "Rewording of cosmetic-surgery-excluded: same evidence, different phrasing."
+  },
+  {
+    "id": "plain-bungee",
+    "question": "I broke my leg bungee jumping, will the insurer pay?",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "hazardous or adventure sports[^.]{0,30}Code\\s*[-–:]?\\s*Excl\\s*0?9",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          15
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          23
+        ]
+      }
+    ],
+    "must_match": [
+      "exclu|not (be )?(covered|payable)|shall not"
+    ],
+    "note": "Rewording of adventure-sports-excluded: same evidence, different phrasing."
+  },
+  {
+    "id": "plain-gastric-bypass",
+    "question": "do they cover gastric bypass for weight loss",
+    "category": "exclusion",
+    "expect": "answer",
+    "evidence": "(Obesity|weight control)[^.]{0,40}Code\\s*[-–:]?\\s*Excl\\s*0?6",
+    "sources": [
+      {
+        "filename": "20240930T172140.pdf",
+        "pages": [
+          2
+        ]
+      },
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          13
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          34
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "filename": "new-india-mediclaim.pdf",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-2.pdf",
+        "pages": [
+          16
+        ]
+      },
+      {
+        "filename": "niva-bupa-reassure-3.pdf",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          9
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "filename": "tata-aig-medicare-platinum.pdf",
+        "pages": [
+          22
+        ]
+      }
+    ],
+    "must_match": [
+      "BMI|body mass|condition|exclu|not (be )?(covered|payable)|shall not"
+    ],
+    "note": "Rewording of obesity-surgery: same evidence, different phrasing."
+  },
+  {
+    "id": "typo-daycare",
+    "question": "are day-care procedurs covrd by the policy",
+    "category": "coverage",
+    "expect": "answer",
+    "evidence": "all (the )?day ?car ?e treatments?|list of day care treatments",
+    "sources": [
+      {
+        "filename": "ArogyaSanjeevani-PolicyDocument.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "Policy Wordings – Arogya Sanjeevani (w.e.f 12th Dec 2022).pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "Policy_Document_Arogya_Sanjeevani_Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "Prospectus Arogya Sanjeevani Policy.pdf",
+        "pages": [
+          8
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-gci-policy-wording.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-retail-pw-570443039657.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "arogya-sanjeevani-policy-wordings.pdf",
+        "pages": [
+          10
+        ]
+      },
+      {
+        "filename": "elevate-policy-wordings.pdf",
+        "pages": [
+          7
+        ]
+      },
+      {
+        "filename": "hdfc-ergo-optima-secure.pdf",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "filename": "policy-wordings-arogya-sanjeevani-policy.pdf",
+        "pages": [
+          6
+        ]
+      },
+      {
+        "filename": "star-health-assure.pdf",
+        "pages": [
+          10
+        ]
+      }
+    ],
+    "must_match": [
+      "day ?care"
+    ],
+    "must_not_match": [
+      "(is|are) not covered"
+    ],
+    "note": "Rewording of day-care: same evidence, different phrasing."
+  },
+  {
+    "id": "car-accident-damage",
+    "question": "Will the policy pay to repair my car after an accident?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /repair.{0,30}(car|vehicle)/; /own damage/",
+    "split": "held-out"
+  },
+  {
+    "id": "phone-screen",
+    "question": "Does the policy pay to fix my cracked phone screen?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /phone screen/; /smartphone/; /mobile phone/",
+    "split": "held-out"
+  },
+  {
+    "id": "flood-home",
+    "question": "Is flood damage to my home covered?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /flood/"
+  },
+  {
+    "id": "claim-settlement-ratio",
+    "question": "What is the claim settlement ratio of the insurer?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /settlement ratio/; /claim settlement ratio/"
+  },
+  {
+    "id": "shortest-surgery-wait",
+    "question": "Which hospital has the shortest waiting list for heart surgery?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /shortest waiting/; /waiting list/"
+  },
+  {
+    "id": "school-fees",
+    "question": "Will the policy pay my child's school fees while I am in hospital?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /school fee/"
+  },
+  {
+    "id": "loss-of-income",
+    "question": "Does the policy pay me for income I lose while I recover?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /loss of (income|earnings|pay)/"
+  },
+  {
+    "id": "jewellery-theft",
+    "question": "Is stolen jewellery covered?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /jewel/",
+    "split": "held-out"
+  },
+  {
+    "id": "term-life-payout",
+    "question": "How much does the policy pay my family if I die of natural causes?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /natural death/; /death (benefit )?(due to|from) natural/"
+  },
+  {
+    "id": "stock-market",
+    "question": "Can I invest the sum insured in the stock market?",
+    "category": "out-of-scope",
+    "expect": "refusal",
+    "note": "Checked absent from the corpus: /stock market/; /mutual fund/"
   }
 ]
