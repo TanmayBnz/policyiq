@@ -91,9 +91,10 @@ curl localhost:8000/readyz
 ```
 
 After a reboot: the Docker daemon starts by itself, but containers you stopped with
-`make down` (or `docker compose stop`) stay stopped, and Ollama is not a boot service
+`make stop` stay stopped, and Ollama is not a boot service
 unless you make it one. Run `make up` again, and start Ollama — on systemd,
-`sudo systemctl enable --now ollama` does it for good. Shutting the machine down with
+`sudo systemctl enable --now ollama` does it for good. `make down` also deletes the database volume (use it only for a clean slate; re-ingesting
+the corpus takes minutes). Shutting the machine down with
 the containers running is fine: Compose restarts them on the next boot.
 
 Tests:
