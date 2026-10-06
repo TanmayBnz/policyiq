@@ -17,7 +17,7 @@ from policyiq.answer import answer_question
 from policyiq.config import settings
 from policyiq.db import list_documents
 from policyiq.evaluation.cases import Case
-from policyiq.evaluation.scoring import score_answer, score_retrieval
+from policyiq.evaluation.scoring import score_answer, score_retrieval, wilson_interval
 from policyiq.llm import get_provider
 from policyiq.retrieval.search import retrieve
 
@@ -108,6 +108,8 @@ def summarise(results: list[CaseResult]) -> dict:
         "retrieval": {
             "answerable_cases": n,
             "hit_at_k": round(sum(r.hit for r in answerable) / n, 3) if n else None,
+            # Printed beside the rate so a small difference is not read as a result.
+            "hit_at_k_ci95": wilson_interval(sum(r.hit for r in answerable), n) if n else None,
             "mrr": round(sum(r.reciprocal_rank for r in answerable) / n, 3) if n else None,
             "precision_at_k": round(sum(r.precision for r in answerable) / n, 3) if n else None,
             "misses": [r.id for r in answerable if not r.hit],
@@ -122,6 +124,9 @@ def summarise(results: list[CaseResult]) -> dict:
         summary["answers"] = {
             "pass_rate": round(sum(r.passed for r in generated) / len(generated), 3),
             "passed": sum(bool(r.passed) for r in generated),
+            "pass_rate_ci95": wilson_interval(
+                sum(bool(r.passed) for r in generated), len(generated)
+            ),
             "of": len(generated),
             "by_category": {k: f"{sum(v)}/{len(v)}" for k, v in sorted(by_category.items())},
             # Of all citations on answerable questions, the share pointing at a gold

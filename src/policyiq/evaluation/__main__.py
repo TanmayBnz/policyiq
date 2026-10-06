@@ -47,7 +47,11 @@ def _use_prompt(path: Path) -> None:
 def cmd_run(args) -> None:
     cases = load_cases(args.questions)
     if args.only:
+        # Naming a case is explicit, so it overrides the split: asking for one held-out
+        # case by id should run it, not silently run nothing.
         cases = [c for c in cases if c.id in set(args.only)]
+    elif args.split != "all":
+        cases = [c for c in cases if c.split == args.split]
     if args.prompt:
         _use_prompt(args.prompt)
     if args.retrieval:
@@ -70,6 +74,7 @@ def cmd_run(args) -> None:
         cases, args.top_k, generate=not args.retrieval_only, cold=not args.warm, progress=_print_row
     )
     report["configuration"]["label"] = args.label
+    report["configuration"]["split"] = "ids" if args.only else args.split
     report["configuration"]["prompt_file"] = str(args.prompt) if args.prompt else None
 
     args.out.mkdir(parents=True, exist_ok=True)
@@ -127,6 +132,12 @@ def main(argv: list[str] | None = None) -> None:
     )
     run_parser.add_argument("--label", default="", help="suffix for the report filename")
     run_parser.add_argument("--only", nargs="+", metavar="ID", help="run just these cases")
+    run_parser.add_argument(
+        "--split",
+        choices=["dev", "held-out", "all"],
+        default="dev",
+        help="which cases to run (default dev; held-out is for the final number only)",
+    )
     run_parser.add_argument("--out", type=Path, default=DEFAULT_RESULTS)
     run_parser.set_defaults(func=cmd_run)
 
