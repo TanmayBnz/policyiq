@@ -32,65 +32,96 @@ FILLER = (
     "the expiry of the stated months of continuous coverage after the date of inception. "
 )
 
+
 def niva_layout() -> list[tuple[int, str]]:
     return [
-        (14, "Claims are settled on the agreed tariff.\n"
-             "5. Exclusions\n"
-             "5.1. Standard Exclusions\n"
-             "5.1.1. Pre-existing Diseases (Code-Excl01):\n" + FILLER * 3),
+        (
+            14,
+            "Claims are settled on the agreed tariff.\n"
+            "5. Exclusions\n"
+            "5.1. Standard Exclusions\n"
+            "5.1.1. Pre-existing Diseases (Code-Excl01):\n" + FILLER * 3,
+        ),
         (15, "5.1.2. Specified disease waiting period (Code-Excl02):\n" + FILLER * 3),
         (16, "5.1.9. Hazardous or adventure sports (Code-Excl09):\n" + FILLER * 3),
-        (17, "5.1.14. Unproven treatments (Code-Excl16):\n" + FILLER * 2 +
-             "\n5.1.15. Sterility and Infertility (Code-Excl17)\n"
-             "Expenses related to sterility and infertility, including IVF.\n"
-             "5.1.16. Maternity Expenses (Code-Excl18)\n"
-             "Medical treatment expenses traceable to childbirth.\n"
-             "5.2. Specific Exclusions\n"),
-        (18, "5.2.1. Personal Waiting Period\n"
-             "Conditions specified for an Insured Person under the personal waiting "
-             "period are payable only after it ends.\n" + FILLER * 2),
+        (
+            17,
+            "5.1.14. Unproven treatments (Code-Excl16):\n"
+            + FILLER * 2
+            + "\n5.1.15. Sterility and Infertility (Code-Excl17)\n"
+            "Expenses related to sterility and infertility, including IVF.\n"
+            "5.1.16. Maternity Expenses (Code-Excl18)\n"
+            "Medical treatment expenses traceable to childbirth.\n"
+            "5.2. Specific Exclusions\n",
+        ),
+        (
+            18,
+            "5.2.1. Personal Waiting Period\n"
+            "Conditions specified for an Insured Person under the personal waiting "
+            "period are payable only after it ends.\n" + FILLER * 2,
+        ),
     ]
 
 
 def arogya_layout() -> list[tuple[int, str]]:
     return [
-        (10, "Any awarded cumulative bonus shall be withdrawn.\n\n"
-             "E Exclusion\n"
-             "The Company shall not be liable to make any payment under the policy in "
-             "connection with or in respect of following expenses:\n\n"
-             "E.i. Standard Exclusions\n\n"
-             "• Pre-Existing Diseases (Code- Excl01)\n"
-             "a) " + FILLER * 3),
+        (
+            10,
+            "Any awarded cumulative bonus shall be withdrawn.\n\n"
+            "E Exclusion\n"
+            "The Company shall not be liable to make any payment under the policy in "
+            "connection with or in respect of following expenses:\n\n"
+            "E.i. Standard Exclusions\n\n"
+            "• Pre-Existing Diseases (Code- Excl01)\n"
+            "a) " + FILLER * 3,
+        ),
         (11, "• Hazardous or Adventure sports: (Code- Excl09)\n" + FILLER * 3),
-        (12, "• Unproven Treatments: (Code- Excl16)\n" + FILLER * 2 +
-             "\n• Sterility and Infertility: (Code- Excl17)\n"
-             "Expenses related to sterility and infertility, including IVF.\n"
-             "• Maternity Expenses (Code:Excl 18):\n"
-             "i. medical treatment expenses traceable to childbirth.\n\n"
-             "ii. Specific Exclusions\n"),
-        (13, "• Personal Waiting Period\n"
-             "Conditions specified for an Insured Person under the personal waiting "
-             "period are payable only after it ends.\n" + FILLER * 2),
+        (
+            12,
+            "• Unproven Treatments: (Code- Excl16)\n"
+            + FILLER * 2
+            + "\n• Sterility and Infertility: (Code- Excl17)\n"
+            "Expenses related to sterility and infertility, including IVF.\n"
+            "• Maternity Expenses (Code:Excl 18):\n"
+            "i. medical treatment expenses traceable to childbirth.\n\n"
+            "ii. Specific Exclusions\n",
+        ),
+        (
+            13,
+            "• Personal Waiting Period\n"
+            "Conditions specified for an Insured Person under the personal waiting "
+            "period are payable only after it ends.\n" + FILLER * 2,
+        ),
     ]
 
 
 def star_layout() -> list[tuple[int, str]]:
     return [
-        (27, "Claims are settled within thirty days.\n"
-             "C. EXCLUSIONS\n"
-             "STANDARD EXCLUSIONS\n"
-             "1. Pre-Existing Diseases - Code Excl 01:\n" + FILLER * 3),
+        (
+            27,
+            "Claims are settled within thirty days.\n"
+            "C. EXCLUSIONS\n"
+            "STANDARD EXCLUSIONS\n"
+            "1. Pre-Existing Diseases - Code Excl 01:\n" + FILLER * 3,
+        ),
         (28, "9.  Hazardous or Adventure sports - Code Excl 09:\n" + FILLER * 3),
-        (31, "16.  Unproven Treatments - Code Excl 16:\n" + FILLER * 2 +
-             "\n17.  Sterility and Infertility (Except to the extent covered under "
-             "Coverage 17) - Code Excl 17 : Expenses related to sterility and "
-             "infertility, including IVF.\n"
-             "18.  Maternity - Code Excl 18 (Except to the extent covered under "
-             "Coverage 15)\n"
-             "SPECIFIC EXCLUSIONS\n"),
-        (32, "1.  Personal Waiting Period\n"
-             "Conditions specified for an Insured Person under the personal waiting "
-             "period are payable only after it ends.\n" + FILLER * 2),
+        (
+            31,
+            "16.  Unproven Treatments - Code Excl 16:\n"
+            + FILLER * 2
+            + "\n17.  Sterility and Infertility (Except to the extent covered under "
+            "Coverage 17) - Code Excl 17 : Expenses related to sterility and "
+            "infertility, including IVF.\n"
+            "18.  Maternity - Code Excl 18 (Except to the extent covered under "
+            "Coverage 15)\n"
+            "SPECIFIC EXCLUSIONS\n",
+        ),
+        (
+            32,
+            "1.  Personal Waiting Period\n"
+            "Conditions specified for an Insured Person under the personal waiting "
+            "period are payable only after it ends.\n" + FILLER * 2,
+        ),
     ]
 
 
@@ -135,7 +166,7 @@ def test_the_fixture_actually_separates_the_item_from_its_heading(layout):
 
 @pytest.mark.parametrize("layout", LAYOUTS)
 def test_a_heading_at_the_end_of_a_page_belongs_to_what_follows(layout):
-    """"Specific Exclusions" closes the standard list and opens the next one. The items
+    """ "Specific Exclusions" closes the standard list and opens the next one. The items
     after it are specific exclusions, not standard ones."""
     chunks = chunk_pages(layout(), TARGET, OVERLAP)
     following = chunk_containing(chunks, "Personal Waiting Period")
@@ -182,7 +213,7 @@ def test_a_digit_printed_for_a_letter_does_not_hide_a_heading():
 
 
 def test_a_line_the_reader_cut_short_is_not_a_heading():
-    """"3.9. Condition Pr" is a definition whose title was truncated. Read as a heading,
+    """ "3.9. Condition Pr" is a definition whose title was truncated. Read as a heading,
     it relabelled every definition after it as terms and conditions."""
     pages = [
         (1, "3. DEFINITIONS\n" + FILLER * 3),
@@ -212,9 +243,12 @@ def test_a_mid_sentence_reference_to_an_exclusion_code_is_not_an_exclusion():
     """star-health-assure's benefits say Exclusion no.1 (Code-Excl 01) does not apply to
     a benefit. That refers to an exclusion; the text around it is still coverage."""
     pages = [
-        (15, "4. COVERAGE\n"
-             "iii.  Exclusion no.1, (Code-Excl 01), Exclusion no.2 (Code-Excl 02) shall\n"
-             "not apply to this cover.\n" + FILLER * 3),
+        (
+            15,
+            "4. COVERAGE\n"
+            "iii.  Exclusion no.1, (Code-Excl 01), Exclusion no.2 (Code-Excl 02) shall\n"
+            "not apply to this cover.\n" + FILLER * 3,
+        ),
         (16, "Home care treatment is payable up to the limit.\n" + FILLER * 2),
     ]
     item = only_chunk_containing(pages, "Home care treatment")
@@ -229,10 +263,13 @@ def test_a_heading_closing_a_short_clause_does_not_label_that_clause():
     heading, and still has to be labelled as the section it belongs to."""
     pages = [
         (14, "5. Exclusions\n5.1. Standard Exclusions\n" + FILLER),
-        (17, FILLER + "\n\n" + FILLER + "\n\n"
-             "5.1.16. Maternity Expenses (Code-Excl18)\n"
-             "Medical treatment expenses traceable to childbirth.\n"
-             "5.2. Specific Exclusions"),
+        (
+            17,
+            FILLER + "\n\n" + FILLER + "\n\n"
+            "5.1.16. Maternity Expenses (Code-Excl18)\n"
+            "Medical treatment expenses traceable to childbirth.\n"
+            "5.2. Specific Exclusions",
+        ),
     ]
     chunks = chunk_pages(pages, TARGET, OVERLAP)
     item = chunk_containing(chunks, "Maternity Expenses")
@@ -246,8 +283,12 @@ def test_a_numbered_heading_led_by_its_section_word_may_end_in_a_full_stop():
     """niva-bupa-reassure-2: "4. Benefits available under the policy." Rejected, eight
     pages of benefits were labelled as definitions."""
     pages = [
-        (5, "2.2. Specific Definitions\n" + FILLER * 2 +
-            "\n4. Benefits available under the policy.\n4.1. Expenses in reaching a Hospital"),
+        (
+            5,
+            "2.2. Specific Definitions\n"
+            + FILLER * 2
+            + "\n4. Benefits available under the policy.\n4.1. Expenses in reaching a Hospital",
+        ),
         (6, "Road ambulance expenses are payable up to the limit.\n" + FILLER * 2),
     ]
     item = only_chunk_containing(pages, "Road ambulance")

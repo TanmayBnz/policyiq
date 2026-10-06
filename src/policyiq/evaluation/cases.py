@@ -20,8 +20,17 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 
 DEFAULT_QUESTIONS = Path("evaluation/questions.json")
 
-Category = Literal["coverage", "limit", "waiting-period", "exclusion", "terms", "claims",
-                   "definition", "product-specific", "out-of-scope"]
+Category = Literal[
+    "coverage",
+    "limit",
+    "waiting-period",
+    "exclusion",
+    "terms",
+    "claims",
+    "definition",
+    "product-specific",
+    "out-of-scope",
+]
 
 
 class Source(BaseModel):

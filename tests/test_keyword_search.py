@@ -33,7 +33,7 @@ def corpus(sample_pdf: Path, tmp_path_factory):
 
 
 def test_every_result_contains_a_word_from_the_question():
-    """"cataract" appears in the specimen's waiting-period clause."""
+    """ "cataract" appears in the specimen's waiting-period clause."""
     results = keyword_search("cataract", top_k=5)
 
     assert results, "the specimen mentions cataract, so there must be a match"
@@ -65,7 +65,7 @@ def test_the_filename_is_searchable():
 
 
 def test_a_hyphenated_word_is_not_turned_into_a_phrase():
-    """"pre-existing" is stored as 'pre-exist', 'pre' and 'exist'. The first version of
+    """ "pre-existing" is stored as 'pre-exist', 'pre' and 'exist'. The first version of
     the query re-parsed those words, turning 'pre-exist' into a three-word phrase that
     could not match as intended. Every word must stay a separate alternative, so a chunk
     containing only "existing" still matches."""
@@ -82,13 +82,16 @@ def test_a_question_of_only_stop_words_returns_nothing_rather_than_failing():
     assert keyword_search("what is it that they were?", top_k=5) == []
 
 
-@pytest.mark.parametrize("question", [
-    "what's covered?",
-    "a & b | !c",
-    "cataract:* <-> 'hernia'",
-    "'); DROP TABLE chunks; --",
-    "",
-])
+@pytest.mark.parametrize(
+    "question",
+    [
+        "what's covered?",
+        "a & b | !c",
+        "cataract:* <-> 'hernia'",
+        "'); DROP TABLE chunks; --",
+        "",
+    ],
+)
 def test_query_syntax_in_the_question_is_treated_as_text(question):
     """Characters that mean something to tsquery must not break the query, and the
     question must never reach the SQL as code."""
@@ -108,8 +111,13 @@ def test_results_carry_the_stored_row():
             (result.chunk_id,),
         ).fetchone()
 
-    assert row == (result.document_id, result.filename, result.page_number,
-                   result.chunk_index, result.content)
+    assert row == (
+        result.document_id,
+        result.filename,
+        result.page_number,
+        result.chunk_index,
+        result.content,
+    )
 
 
 def test_every_chunk_has_its_search_words(corpus):

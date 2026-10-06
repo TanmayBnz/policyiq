@@ -67,8 +67,13 @@ def vector_search(question: str, top_k: int) -> list[RetrievedChunk]:
 
     return [
         RetrievedChunk(
-            chunk_id=r[0], document_id=r[1], filename=r[2], page_number=r[3],
-            chunk_index=r[4], content=r[5], score=float(r[6]),
+            chunk_id=r[0],
+            document_id=r[1],
+            filename=r[2],
+            page_number=r[3],
+            chunk_index=r[4],
+            content=r[5],
+            score=float(r[6]),
         )
         for r in rows
     ]

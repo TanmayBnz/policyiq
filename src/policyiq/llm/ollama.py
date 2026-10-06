@@ -79,7 +79,8 @@ class OllamaProvider:
         """
         try:
             self._client.post(
-                "/api/generate", json={"model": self.model, "keep_alive": 0},
+                "/api/generate",
+                json={"model": self.model, "keep_alive": 0},
                 timeout=self._timeout,
             ).raise_for_status()
         except httpx.HTTPError as exc:

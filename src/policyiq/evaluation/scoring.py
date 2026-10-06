@@ -43,7 +43,8 @@ class RetrievalScore:
 def score_retrieval(chunks: list[RetrievedChunk], case: Case) -> RetrievalScore:
     gold = case.gold_pages()
     ranks = [
-        rank for rank, chunk in enumerate(chunks, start=1)
+        rank
+        for rank, chunk in enumerate(chunks, start=1)
         if (chunk.filename, chunk.page_number) in gold
     ]
     return RetrievalScore(k=len(chunks), relevant_ranks=ranks)
@@ -75,9 +76,7 @@ def score_answer(response: QueryResponse, case: Case) -> AnswerScore:
     answer = response.answer
     score = AnswerScore(citations=len(response.citations))
     gold = case.gold_pages()
-    score.citations_on_gold = sum(
-        (c.filename, c.page_number) in gold for c in response.citations
-    )
+    score.citations_on_gold = sum((c.filename, c.page_number) in gold for c in response.citations)
 
     for pattern in case.must_not_match:
         if re.search(pattern, answer, re.IGNORECASE):

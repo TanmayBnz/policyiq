@@ -86,9 +86,7 @@ def answer_question(question: str, top_k: int | None = None) -> QueryResponse:
     k = top_k or settings.retrieval_top_k
     chunks = retrieve(question, k)
     if not chunks:
-        return QueryResponse(
-            answer="No documents have been ingested yet.", citations=[]
-        )
+        return QueryResponse(answer="No documents have been ingested yet.", citations=[])
 
     answer = get_provider().generate(build_prompt(question, chunks)).strip()
 
